@@ -5,7 +5,7 @@ class AuthService {
     private authUrl: string;
 
     constructor() {
-        this.baseUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "";
+        this.baseUrl = process.env.BACKEND_BASE_URL || process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "";
         this.authUrl = `${this.baseUrl}/auth`;
     }
 

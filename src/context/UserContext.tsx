@@ -1,4 +1,6 @@
-import { createContext, PropsWithChildren, useState, useEffect } from "react";
+"use client";
+
+import { createContext, PropsWithChildren, useState, useEffect, useContext } from "react";
 import UserService from "@/utils/userService";
 import AuthService from "@/utils/authService";
 
@@ -40,6 +42,10 @@ export function UserProvider({ children }: PropsWithChildren<{}>) {
 
     }
 
+    useEffect(() => {
+        fetchUserProfile();
+    }, [])
+
     async function login(email: string, password: string) {
         try {
             const response = await new AuthService().login(email, password);
@@ -48,15 +54,36 @@ export function UserProvider({ children }: PropsWithChildren<{}>) {
             }
             await fetchUserProfile();
         } catch (error) {
-
+            console.error("Error login in: ", error);
         }
     }
 
+    async function register(email: string, password: string) {
+        try {
+            const response = await new AuthService().register(email, password);
+            if (!response.ok) {
+                throw new Error("Register failed");
+            }
+        } catch (error) {
+            console.error("Error register user: ", error);
+        }
+    }
+
+    async function logout() {
+        setUser(null);
+    }
+
     return (
-        <></>
-        // <UserContext.Provider value={{ user, loading }}>
-        //     {children}
-        // </UserContext.Provider>
+        <UserContext.Provider value={{ user, loading, actions: { login, register, logout } }}>
+            {children}
+        </UserContext.Provider>
     )
 
+}
+
+
+export function useUser() {
+    const user = useContext(UserContext);
+
+    return user;
 }

@@ -1,18 +1,21 @@
 import axios from "axios";
+import Hero from "@/components/Hero";
+import Properties from "@/components/property/Properties";
+import PropertyService from "@/utils/propertyService";
 
 
 
 export default async function Home() {
-  const response = await axios.get("http://localhost:3000/property");
-  const { data: { properties: { data: properties } } } = response;
+
+  const response = await new PropertyService().getProperties();
 
 
   return (
     <>
-      <ul>
-
-
-      </ul>
+      <Hero />
+      <main>
+        <Properties data={response.data.properties.data} />
+      </main>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import axios from "axios";
+
 
 class AuthService {
     private baseUrl: string;
@@ -12,13 +12,23 @@ class AuthService {
     async login(email: string, password: string) {
         let url = `${this.authUrl}/login`;
 
-        return await axios.post(url, { email, password }, { withCredentials: true });
+        return await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-type': 'Application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ email, password })
+        });
     }
 
     async register(email: string, password: string) {
         let url = `${this.authUrl}/register`;
 
-        return await axios.post(url, { email, password }, { withCredentials: true });
+        return await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-type': 'Application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ email, password })
+        });
     }
 }
 

@@ -12,7 +12,7 @@ class UserService {
     async getUserProfile() {
         let url = `${this.userUrl}/`;
 
-        return await fetch(url);
+        return await fetch(url, { credentials: 'include' });
     }
 
     async editUserProfile() {

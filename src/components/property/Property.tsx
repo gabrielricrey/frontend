@@ -1,9 +1,5 @@
-"use client";
-
-import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import BookingService from "@/utils/bookingService";
+import BookingForm from "../booking/BookingForm";
 
 type PropertyProp = {
     property: Property
@@ -12,25 +8,7 @@ type PropertyProp = {
 const Property = ({ property }: PropertyProp) => {
     const { id, image_url, name, description, price_per_night } = property;
 
-    const [checkInDate, setCheckInDate] = useState<string>("");
-    const [checkOutDate, setCheckOutDate] = useState<string>("");
 
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        try {
-            const response = await new BookingService().createBooking(checkInDate, checkOutDate, id);
-            if (!response.ok) {
-                throw new Error("Error create booking");
-
-            }
-            const data = await response.json();
-            console.log(data);
-        } catch (error) {
-            console.log(error);
-        }
-
-
-    }
 
     return (
         <div className="w-full flex justify-center">
@@ -45,34 +23,7 @@ const Property = ({ property }: PropertyProp) => {
                         </div>
                     </div>
                     <div className="flex-1">
-                        Booking
-                        <form onSubmit={onSubmit}>
-
-                            <label>
-                                Check-in
-                                <input
-                                    type="date"
-                                    value={checkInDate}
-                                    min={new Date().toISOString().split("T")[0]}
-                                    onChange={(e) => setCheckInDate(e.target.value)}
-                                    className="border p-2 rounded w-full"
-                                />
-                            </label>
-
-                            <label>
-                                Check-out
-                                <input
-                                    type="date"
-                                    value={checkOutDate}
-                                    min={checkInDate}
-                                    onChange={(e) =>
-                                        setCheckOutDate(e.target.value)
-                                    }
-                                    className="border p-2 rounded w-full"
-                                />
-                            </label>
-                            <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">Book</button>
-                        </form>
+                        <BookingForm propertyId={id} />
                     </div>
                 </div>
             </div>

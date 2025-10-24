@@ -1,4 +1,9 @@
-
+type UpdateBooking = {
+    bookingId: string | undefined,
+    checkInDate?: string,
+    checkOutDate?: string,
+    status?: string
+}
 
 class BookingService {
     private baseUrl: string;
@@ -9,7 +14,7 @@ class BookingService {
         this.bookingUrl = `${this.baseUrl}/booking`
     }
 
-    async createBooking(check_in_date: string, check_out_date: string, property_id: string) {
+    async createBooking(property_id: string, check_in_date: string, check_out_date: string,) {
         let url = this.bookingUrl
         return await fetch(url, {
             method: 'POST',
@@ -30,6 +35,43 @@ class BookingService {
             headers: {
                 'Content-type': 'application/json'
             }
+        });
+    }
+
+    async getBooking(id: string) {
+        let url = `${this.bookingUrl}/${id}`;
+        return await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        });
+    }
+
+
+    async updateBooking({ bookingId, checkInDate, checkOutDate, status }: UpdateBooking) {
+
+        let check_in_date = checkInDate;
+        let check_out_date = checkOutDate;
+
+        const updateData = status
+            ? { status }
+            : { check_in_date, check_out_date };
+
+        console.log(updateData);
+
+        let url = `${this.bookingUrl}/${bookingId}`;
+
+        return await fetch(url, {
+
+            method: 'PUT',
+            credentials: 'include',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(updateData)
+
         });
     }
 }

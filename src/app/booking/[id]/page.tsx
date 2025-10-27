@@ -1,13 +1,21 @@
-import Bookings from "@/components/booking/Bookings";
+import BookingForm from "@/components/booking/BookingForm";
+import Booking from "@/components/booking/Booking";
 import { cookies } from "next/headers";
 
-const page = async () => {
+type BookingPageProps = {
+    params: {
+        id: string;
+    }
+}
+
+const BookingPage = async ({ params }: BookingPageProps) => {
+    const id = params.id;
     try {
         const cookieStore = cookies();
         const sessionCookie = (await cookieStore).get("sb-wpsscnnnxurgkeoqwgjy-auth-token");
 
         const baseUrl = process.env.BACKEND_BASE_URL || process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "";
-        const bookingUrl = `${baseUrl}/booking`
+        const bookingUrl = `${baseUrl}/booking/${id}`;
 
         const response = await fetch(bookingUrl, {
             method: 'GET',
@@ -23,14 +31,16 @@ const page = async () => {
         const data = await response.json();
 
         return (
-            <Bookings data={data.bookings} />
+            <div>
+                <Booking booking={data.booking} />
+            </div>
         )
 
     } catch (error) {
         console.error("Error fetching bookings:", error);
 
-        return <Bookings data={[]} />;
+        return <Booking booking={{}} />;
     }
 }
 
-export default page
+export default BookingPage;

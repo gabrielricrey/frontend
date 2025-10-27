@@ -1,15 +1,15 @@
-"use client";
-
-import Link from "next/link";
 import Image from "next/image";
+import BookingForm from "../booking/BookingForm";
 
 type PropertyProp = {
     property: Property
 }
 
 const Property = ({ property }: PropertyProp) => {
-    console.log(property);
-    const { image_url, name, description, price_per_night } = property;
+    const { id, image_url, name, description, price_per_night } = property;
+
+
+
     return (
         <div className="w-full flex justify-center">
             <div className="w-full lg:w-3/4">
@@ -23,7 +23,7 @@ const Property = ({ property }: PropertyProp) => {
                         </div>
                     </div>
                     <div className="flex-1">
-                        Booking
+                        <BookingForm propertyId={id} />
                     </div>
                 </div>
             </div>

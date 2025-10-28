@@ -1,6 +1,6 @@
 import React from 'react'
 import { cookies } from 'next/headers'
-import Bookings from '@/components/booking/Bookings';
+import HostBookings from '@/components/booking/HostBookings';
 
 const HostBookingsPage = async () => {
 
@@ -26,13 +26,13 @@ const HostBookingsPage = async () => {
         console.log(data);
 
         return (
-            <Bookings bookingWithPropertyAndUSer={data.hostBookings} isHostBookings={true} />
+            <HostBookings data={data.hostBookings} />
         )
 
     } catch (error) {
         console.error("Error fetching bookings:", error);
 
-        return <Bookings bookingWithPropertyAndUSer={[]} isHostBookings={true} />;
+        return <HostBookings data={[]} />;
     }
 }
 

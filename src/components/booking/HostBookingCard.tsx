@@ -1,8 +1,10 @@
-import React from 'react'
+"use client";
 import Link from 'next/link';
 import { CheckIcon, XMarkIcon } from '@heroicons/react/16/solid';
+import HostBookingService from '@/utils/hostBookingService';
 
-interface BookingCardProps {
+
+interface HostBookingCardProps {
     booking: {
         id: string;
         property_id: string;
@@ -18,10 +20,31 @@ interface BookingCardProps {
         status: string;
         created_at: string;
         updated_at: string;
-    }
+    },
+    updateBookings: (index: number, status: string) => void,
+    index: number,
+
 }
 
-const HostBookingCard = ({ booking }: BookingCardProps) => {
+const HostBookingCard = ({ booking, updateBookings, index }: HostBookingCardProps) => {
+
+    const handleClick = async (action: "accept" | "reject") => {
+        const status = action === 'accept' ? 'confirmed' : 'cancelled';
+        console.log(status);
+        try {
+            const response = await new HostBookingService().updateBooking(booking.id, status);
+            if (!response.ok) {
+                throw new Error("Error updating booking");
+            }
+
+            updateBookings(index, status);
+
+
+        } catch (error) {
+            console.error("Error:", error);
+        }
+
+    }
     return (
         <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
             {booking.property_image && (
@@ -55,8 +78,8 @@ const HostBookingCard = ({ booking }: BookingCardProps) => {
                 </div>
                 {booking.status === 'pending' &&
                     <div className='flex'>
-                        <button className=' border border-green-500 rounded-md'><CheckIcon className='size-6 text-green-500 ' /></button>
-                        <button className='border border-red-500 rounded-md'><XMarkIcon className='size-6 text-red-500 ' /></button>
+                        <button onClick={() => handleClick('accept')} className='border border-green-500 rounded-md'><CheckIcon className='size-6 text-green-500 ' /></button>
+                        <button onClick={() => handleClick('reject')} className='border border-red-500 rounded-md'><XMarkIcon className='size-6 text-red-500 ' /></button>
                     </div>
                 }
             </div>

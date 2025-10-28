@@ -17,4 +17,6 @@ interface PropertyWithBookings extends Property {
     bookings: Booking[]
 }
 
+type PropertyPreview = Pick<Property, "id" | "name" | "image_url">
+
 

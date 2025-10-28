@@ -1,22 +1,28 @@
 "use client";
-import { useState, useEffect } from "react";
-import BookingService from "@/utils/bookingService";
+import { useState } from "react";
 import BookingCard from "./BookingCard";
 
 type BookingsProp = {
-    data: Booking[]
+    data: Booking[],
 }
 
 const Bookings = ({ data }: BookingsProp) => {
-    const bookings = data;
+    console.log(data);
+    const [bookings, setBookings] = useState(data || []);;
 
     return (
         <div>
             <ul>
-                {bookings.map(b => <BookingCard booking={b} key={b.id} />)}
+                {bookings &&
+                    bookings.map(b => <BookingCard booking={b} key={b.id} />)
+                }
             </ul>
         </div>
     )
+
+
+
+
 }
 
 export default Bookings

@@ -1,22 +1,37 @@
-"use client";
-import { useState, useEffect } from "react";
-import BookingService from "@/utils/bookingService";
+
+import HostBookingCard from "./HostBookingCard";
 import BookingCard from "./BookingCard";
 
 type BookingsProp = {
-    data: Booking[]
+    data?: Booking[],
+    bookingWithPropertyAndUSer?: BookingWithUserAndProperty[];
+    isHostBookings?: boolean;
 }
 
-const Bookings = ({ data }: BookingsProp) => {
-    const bookings = data;
+const Bookings = ({ data, isHostBookings, bookingWithPropertyAndUSer }: BookingsProp) => {
+    if (!isHostBookings) {
+        const bookings = data!;
+        return (
+            <div>
+                <ul>
+                    {bookings.map(b => <BookingCard booking={b} key={b.id} />)}
+                </ul>
+            </div>
+        )
 
-    return (
-        <div>
-            <ul>
-                {bookings.map(b => <BookingCard booking={b} key={b.id} />)}
-            </ul>
-        </div>
-    )
+    } else {
+        const hostBookings = bookingWithPropertyAndUSer!;
+        console.log(hostBookings);
+        return (
+            <div>
+                <ul>
+                    {hostBookings.map(b => <HostBookingCard booking={b} key={b.id} />)}
+                </ul>
+            </div>
+        )
+    }
+
+
 }
 
 export default Bookings

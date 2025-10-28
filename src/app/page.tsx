@@ -1,4 +1,3 @@
-import axios from "axios";
 import Hero from "@/components/Hero";
 import Properties from "@/components/property/Properties";
 import PropertyService from "@/utils/propertyService";

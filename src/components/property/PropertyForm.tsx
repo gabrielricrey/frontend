@@ -4,7 +4,7 @@ import { useState } from "react";
 import HostPropertyService from "@/utils/hostPropertyService";
 
 
-const CreatePropertyForm = () => {
+const PropertyForm = () => {
     const [propertyName, setPropertyName] = useState("");
     const [description, setDescription] = useState("");
     const [costPerNight, setCostPerNight] = useState<number | "">("");
@@ -140,4 +140,4 @@ const CreatePropertyForm = () => {
     );
 };
 
-export default CreatePropertyForm
+export default PropertyForm

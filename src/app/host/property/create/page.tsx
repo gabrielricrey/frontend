@@ -1,11 +1,11 @@
-import CreatePropertyForm from "@/components/property/CreatePropertyForm";
+import PropertyForm from "@/components/property/PropertyForm";
 
-const Page = () => {
+const CreatePropertyPage = () => {
 
     return (
-        <CreatePropertyForm />
+        <PropertyForm />
     )
 }
 
 
-export default Page;
+export default CreatePropertyPage;

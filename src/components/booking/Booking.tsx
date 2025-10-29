@@ -3,6 +3,7 @@ import { useState } from "react";
 import BookingForm from "./BookingForm";
 import { XMarkIcon, PencilSquareIcon } from "@heroicons/react/16/solid";
 import BookingService from "@/utils/bookingService";
+import CancelBookingModal from "./CancelBookingModal";
 
 
 type BookingProp = {
@@ -47,17 +48,7 @@ const Booking = ({ booking }: BookingProp) => {
                 </div>
             }
             {showDeleteModal &&
-                <div className="">
-                    <p>Are you sure you want to delete?</p>
-                    <div>
-                        <button onClick={handleClick}>
-                            Delete
-                        </button>
-                        <button>
-                            Cancel
-                        </button>
-                    </div>
-                </div>
+                <CancelBookingModal handleClick={handleClick} />
             }
         </div>
     )

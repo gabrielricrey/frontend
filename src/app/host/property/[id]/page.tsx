@@ -1,4 +1,5 @@
 import { cookies } from "next/headers"
+import HostProperty from "@/components/property/HostProperty";
 
 type PropertyPageProps = {
     params: {
@@ -32,9 +33,9 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
 
 
         return (
-            <>
-                <h3>Property</h3>
-            </>
+            <div className="w-full flex justify-center">
+                <HostProperty data={data.property} />
+            </div>
         )
 
     } catch (error) {

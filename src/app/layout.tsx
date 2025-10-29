@@ -4,6 +4,7 @@ import BottomNav from "@/components/BottomNav";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { UserProvider } from "@/context/UserContext";
+import { HostModeProvider } from "@/context/HostModeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +32,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <UserProvider>
-          <Navbar />
-          {children}
-          <BottomNav />
+          <HostModeProvider>
+            <Navbar />
+            {children}
+            <BottomNav />
+          </HostModeProvider>
         </UserProvider>
       </body>
     </html>

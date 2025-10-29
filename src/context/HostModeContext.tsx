@@ -13,7 +13,7 @@ type HostModeState = {
 
 const HostModeContext = createContext<HostModeState | undefined>(undefined);
 
-export default function HostModeProvider({ children }: PropsWithChildren) {
+export function HostModeProvider({ children }: PropsWithChildren) {
     const [hostMode, setHostMode] = useState<boolean>(false);
 
     const turnOnHostMode = () => {

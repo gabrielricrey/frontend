@@ -39,6 +39,12 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
         )
 
     } catch (error) {
+        console.error("Error:", error);
+        return (
+            <div className="w-full flex justify-center">
+                //Fix later
+            </div>
+        )
 
     }
 

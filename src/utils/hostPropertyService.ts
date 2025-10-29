@@ -32,6 +32,20 @@ class HostPropertyService {
 
     }
 
+    async updateProperty(id: string, data: NewProperty) {
+        let url = `${this.propertyUrl}/${id}`;
+
+        return await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(data),
+        })
+
+    }
+
     async deleteProperty(id: string) {
         let url = `${this.propertyUrl}/${id}`;
 

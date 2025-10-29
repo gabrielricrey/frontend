@@ -1,15 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HostPropertyService from "@/utils/hostPropertyService";
+import { useRouter } from "next/navigation";
+
+type PropertyFormProps = {
+    property?: Property
+}
 
 
-const PropertyForm = () => {
-    const [propertyName, setPropertyName] = useState("");
-    const [description, setDescription] = useState("");
-    const [costPerNight, setCostPerNight] = useState<number | "">("");
-    const [isAvailable, setIsAvailable] = useState(false);
-    const [imageUrl, setImageUrl] = useState("");
+const PropertyForm = ({ property }: PropertyFormProps) => {
+
+
+    const [propertyName, setPropertyName] = useState(property?.name || "");
+    const [description, setDescription] = useState(property?.description || "");
+    const [costPerNight, setCostPerNight] = useState<number | "">(property?.price_per_night || "");
+    const [isAvailable, setIsAvailable] = useState(property?.is_available || false);
+    const [imageUrl, setImageUrl] = useState(property?.image_url || "");
+
+    const [isUpdate, setIsUpdate] = useState(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (property) {
+            setIsUpdate(true);
+        }
+    }, [])
 
 
     const onSubmit = async (e: React.FormEvent) => {
@@ -21,7 +37,7 @@ const PropertyForm = () => {
                 return;
             }
 
-            const newProperty = {
+            const propertyData = {
                 name: propertyName,
                 description,
                 price_per_night: Number(costPerNight),
@@ -29,12 +45,24 @@ const PropertyForm = () => {
                 image_url: imageUrl,
             };
 
-            console.log(newProperty);
+            console.log(propertyData);
 
-            const response = await new HostPropertyService().createProperty(newProperty);
+            let response;
+
+            if (!isUpdate) {
+                response = await new HostPropertyService().createProperty(propertyData);
+
+            } else {
+                response = await new HostPropertyService().updateProperty(property!.id, propertyData);
+            }
+
 
             if (!response.ok) {
-                throw new Error("Error creating property");
+                if (!isUpdate) {
+                    throw new Error("Error creating property");
+                } else {
+                    throw new Error("Error updating property");
+                }
             }
 
             const data = await response.json();
@@ -47,7 +75,7 @@ const PropertyForm = () => {
             setIsAvailable(false);
             setImageUrl("");
 
-
+            router.push(`/host/property/${data.property.id}`);
 
         } catch (error) {
             console.error("Error:", error)
@@ -133,7 +161,9 @@ const PropertyForm = () => {
                     type="submit"
                     className="mt-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md p-2"
                 >
-                    Submit
+                    <span>
+                        {isUpdate ? "Save Changes" : "Create Property"}
+                    </span>
                 </button>
             </form>
         </div>

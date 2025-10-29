@@ -32,6 +32,19 @@ class HostPropertyService {
 
     }
 
+    async deleteProperty(id: string) {
+        let url = `${this.propertyUrl}/${id}`;
+
+        return await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+        })
+
+    }
+
 }
 
 export default HostPropertyService;

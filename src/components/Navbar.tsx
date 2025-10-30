@@ -11,6 +11,7 @@ const Navbar = () => {
     const pathname = usePathname();
     const isRoot = pathname === '/';
     const user = useUser();
+
     return (
         <nav className="w-full h-14 md:h-16 border-b flex justify-center items-center p-2 relative">
             <a href="#" className="absolute left-8 top-1/2 transform -translate-y-1/2">Stay</a>
@@ -21,10 +22,14 @@ const Navbar = () => {
                 </div>
             }
             <div className="absolute right-8 top-1/2 transform -translate-y-1/2 flex">
-                {user.user &&
-                    <HostModeSwitch />
+                {user?.user && (
+                    user.user.is_host ?
+                        <HostModeSwitch />
+                        : <button>Become a host</button>
+                )
                 }
-                {user.user &&
+
+                {user?.user &&
                     <Link href={'/me'} className="hidden md:block">
                         <div className="flex flex-col items-center">
                             <UserCircleIcon className="size-6" />
@@ -32,7 +37,7 @@ const Navbar = () => {
                         </div>
                     </Link>
                 }
-                {!user.user &&
+                {!user?.user &&
                     <Link href={'/login'} className="hidden md:block">
                         <div className="flex flex-col items-center">
                             <UserCircleIcon className="size-6" />

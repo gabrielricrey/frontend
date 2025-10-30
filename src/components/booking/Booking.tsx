@@ -41,6 +41,7 @@ const Booking = ({ booking }: BookingProp) => {
             <h3>{booking.properties.name}</h3>
             <p>{booking.check_in_date}</p>
             <p>{booking.check_out_date}</p>
+            <p> Status: {booking.status}</p>
 
             {showEditForm &&
                 <div>

@@ -39,7 +39,8 @@ const BookingPage = async ({ params }: BookingPageProps) => {
     } catch (error) {
         console.error("Error fetching bookings:", error);
 
-        return <Booking booking={{}} />;
+        return <div>Erroe</div>
+        // return <Booking booking={{}} />;
     }
 }
 

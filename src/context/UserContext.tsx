@@ -13,6 +13,7 @@ type AuthActions = {
 
 type UserState = {
     user: UserProfile | null,
+    setUser: React.Dispatch<React.SetStateAction<UserProfile | null>>
     loading: boolean,
     actions: AuthActions
 }
@@ -74,7 +75,7 @@ export function UserProvider({ children }: PropsWithChildren<{}>) {
     }
 
     return (
-        <UserContext.Provider value={{ user, loading, actions: { login, register, logout } }}>
+        <UserContext.Provider value={{ user, setUser, loading, actions: { login, register, logout } }}>
             {children}
         </UserContext.Provider>
     )

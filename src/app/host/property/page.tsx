@@ -23,12 +23,16 @@ export default async function PropertiesPage() {
         const data = await response.json();
         console.log(data);
         return (
-            <HostProperties data={data.properties} />
+            <div className="">
+                <HostProperties data={data.properties} />
+            </div>
         )
     } catch (error) {
         console.error("Error:", error);
         return (
-            <HostProperties data={[]} />
+            <div className="mt-14 md:mt-16">
+                <HostProperties data={[]} />
+            </div>
         )
 
     }

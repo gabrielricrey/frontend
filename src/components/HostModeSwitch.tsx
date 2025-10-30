@@ -9,7 +9,6 @@ export const HostModeSwitch = () => {
 
     const toggle = () => {
         const newMode = !hostMode;
-        document.cookie = `hostMode=${newMode}; path=/`;
 
         if (newMode) {
             actions.turnOnHostMode();

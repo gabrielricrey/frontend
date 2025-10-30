@@ -17,7 +17,7 @@ const BottomNav = () => {
                     </div>
                 </Link>
             }
-            {user.user && hostMode.hostMode &&
+            {user?.user && hostMode.hostMode &&
                 <Link href={'/host/property'}>
                     <div className="flex flex-col items-center">
                         <HomeModernIcon className="size-6" />
@@ -25,7 +25,7 @@ const BottomNav = () => {
                     </div>
                 </Link>
             }
-            {user.user && hostMode.hostMode &&
+            {user?.user && hostMode.hostMode &&
                 <Link href={'/host/booking'}>
                     <div className="flex flex-col items-center">
                         <CalendarDaysIcon className="size-6" />
@@ -33,7 +33,7 @@ const BottomNav = () => {
                     </div>
                 </Link>
             }
-            {user.user && !hostMode.hostMode &&
+            {user?.user && !hostMode.hostMode &&
                 <Link href={'/booking'}>
                     <div className="flex flex-col items-center">
                         <CalendarDaysIcon className="size-6" />
@@ -41,7 +41,7 @@ const BottomNav = () => {
                     </div>
                 </Link>
             }
-            {user.user &&
+            {user?.user &&
                 <Link href={'/me'}>
                     <div className="flex flex-col items-center">
                         <UserCircleIcon className="size-6" />
@@ -49,7 +49,7 @@ const BottomNav = () => {
                     </div>
                 </Link>
             }
-            {!user.user &&
+            {!user?.user &&
                 <Link href={'/login'}>
                     <div className="flex flex-col items-center">
                         <UserCircleIcon className="size-6" />

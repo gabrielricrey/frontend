@@ -5,12 +5,13 @@ import { HostModeSwitch } from "./HostModeSwitch"
 import { usePathname } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 import Link from "next/link";
-import BecomeHostButton from "./BecomeHostButton";
+import BecomeHostLabel from "./BecomeHostLabel";
 
 const Navbar = () => {
 
     const pathname = usePathname();
     const isRoot = pathname === '/';
+    const onBecomeHost = pathname === '/host/become';
     const user = useUser();
 
     return (
@@ -26,7 +27,7 @@ const Navbar = () => {
                 {user?.user && (
                     user.user.is_host ?
                         <HostModeSwitch />
-                        : <BecomeHostButton />
+                        : onBecomeHost ? <></> : <BecomeHostLabel />
                 )
                 }
 

@@ -9,4 +9,5 @@ interface UserProfile extends NewUserProfile {
     created_at: string
     updated_at: string,
     is_admin: boolean,
+    is_host: boolean,
 }

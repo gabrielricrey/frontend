@@ -4,6 +4,7 @@ import BookingForm from "./BookingForm";
 import { XMarkIcon, PencilSquareIcon } from "@heroicons/react/16/solid";
 import BookingService from "@/utils/bookingService";
 import CancelBookingModal from "./CancelBookingModal";
+import Image from "next/image";
 
 
 type BookingProp = {
@@ -38,9 +39,15 @@ const Booking = ({ booking }: BookingProp) => {
                     <XMarkIcon className="size-6" />
                 </button>
             </div>
+            <Image
+                src={booking.properties.image_url}
+                width={400}
+                height={400}
+                alt={booking.properties.name} />
             <h3>{booking.properties.name}</h3>
             <p>{booking.check_in_date}</p>
             <p>{booking.check_out_date}</p>
+            <p> Status: {booking.status}</p>
 
             {showEditForm &&
                 <div>

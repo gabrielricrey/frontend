@@ -3,7 +3,7 @@ import { useState } from "react";
 import BookingCard from "./BookingCard";
 
 type BookingsProp = {
-    data: Booking[],
+    data: BookingWithProperty[],
 }
 
 const Bookings = ({ data }: BookingsProp) => {

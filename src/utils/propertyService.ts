@@ -1,4 +1,3 @@
-import axios from "axios";
 
 class PropertyService {
     private baseUrl: string;
@@ -10,12 +9,12 @@ class PropertyService {
     }
 
     async getProperties() {
-        return await axios.get(this.propertyUrl);
+        return await fetch(this.propertyUrl);
     }
 
     async getProperty(id: string) {
         let url = `${this.propertyUrl}/${id}`;
-        return await axios.get(url);
+        return await fetch(url);
     }
 
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import BookingService from "@/utils/bookingService";
+import { useUser } from "@/context/UserContext";
 
 type BookingFormProps = {
     propertyId?: string;
@@ -14,6 +15,8 @@ const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate
 
     const [checkInDate, setCheckInDate] = useState<string>(checkIn || "");
     const [checkOutDate, setCheckOutDate] = useState<string>(checkOut || "");
+
+    const user = useUser();
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -50,31 +53,39 @@ const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate
 
     }
     return (
-        <form onSubmit={onSubmit}>
-            <label>
-                Check-in
-                <input
-                    type="date"
-                    value={checkInDate}
-                    min={new Date().toISOString().split("T")[0]}
-                    onChange={(e) => setCheckInDate(e.target.value)}
-                    className="border p-2 rounded w-full"
-                />
-            </label>
-            <label>
-                Check-out
-                <input
-                    type="date"
-                    value={checkOutDate}
-                    min={checkInDate}
-                    onChange={(e) =>
-                        setCheckOutDate(e.target.value)
-                    }
-                    className="border p-2 rounded w-full"
-                />
-            </label>
-            <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">{updateBooking ? "Update" : "Book"}</button>
-        </form>
+        <>
+            {
+                user?.user &&
+                <form onSubmit={onSubmit}>
+                    <label>
+                        Check-in
+                        <input
+                            type="date"
+                            value={checkInDate}
+                            min={new Date().toISOString().split("T")[0]}
+                            onChange={(e) => setCheckInDate(e.target.value)}
+                            className="border p-2 rounded w-full"
+                        />
+                    </label>
+                    <label>
+                        Check-out
+                        <input
+                            type="date"
+                            value={checkOutDate}
+                            min={checkInDate}
+                            onChange={(e) =>
+                                setCheckOutDate(e.target.value)
+                            }
+                            className="border p-2 rounded w-full"
+                        />
+                    </label>
+                    <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">{updateBooking ? "Update" : "Book"}</button>
+                </form>
+            }
+            {!user?.user &&
+                <p>Sign in to be able to book!</p>
+            }
+        </>
     )
 }
 

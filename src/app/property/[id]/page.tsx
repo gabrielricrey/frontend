@@ -7,12 +7,25 @@ type PropertPageProps = {
 }
 
 const PropertyPage = async ({ params }: PropertPageProps) => {
-    const id = params.id;
-    const response = await new PropertyService().getProperty(id);
-    console.log(response);
-    return (
-        <Property property={response.data.property} />
-    )
+    try {
+
+        const id = params.id;
+        const response = await new PropertyService().getProperty(id);
+
+        if (!response.ok) {
+            throw new Error("Error fetching property");
+        }
+        const data = await response.json();
+        return (
+            <Property property={data} />
+        )
+    } catch (error) {
+        console.error("Error:", error);
+        return (
+            <p>Error</p>
+        )
+    }
+
 }
 
 export default PropertyPage

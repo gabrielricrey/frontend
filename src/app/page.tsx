@@ -14,15 +14,33 @@ export default async function Home() {
   if (hostMode) {
     redirect('/host');
   };
+  try {
+    const response = await new PropertyService().getProperties();
+    const data = await response.json();
 
-  const response = await new PropertyService().getProperties();
+    if (!response.ok) {
+      throw new Error("Error fetching properties");
+    }
 
-  return (
-    <>
-      <Hero />
-      <main>
-        <Properties data={response.data.properties.data} />
-      </main>
-    </>
-  );
+    return (
+      <>
+        <Hero />
+        <main>
+          <Properties data={data.properties.data} />
+        </main>
+      </>
+    );
+  } catch (error) {
+    console.error("Error:", error);
+    return (
+      <>
+        <Hero />
+        <main>
+          <p>Error fetching properties</p>
+        </main>
+      </>
+    )
+
+  }
+
 }

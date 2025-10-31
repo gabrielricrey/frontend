@@ -29,12 +29,18 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
         notFound();
     }
 
-    if (!response.ok) {
-        throw new Error("Error fetching property");
+    let data;
+
+    try {
+        data = await response.json();
+    } catch {
+        data = null;
     }
 
-    const data = await response.json();
-
+    if (!response.ok) {
+        const message = data?.message
+        throw new Error(message || "Error fetching property");
+    }
 
     return (
         <div className="w-full flex justify-center">

@@ -1,30 +1,39 @@
 import React from 'react'
 import PropertyService from '@/utils/propertyService'
 import Property from '@/components/property/Property'
+import { notFound } from 'next/navigation'
 
 type PropertPageProps = {
     params: { id: string }
 }
 
 const PropertyPage = async ({ params }: PropertPageProps) => {
-    try {
+    const id = params.id;
+    const response = await new PropertyService().getProperty(id);
 
-        const id = params.id;
-        const response = await new PropertyService().getProperty(id);
-
-        if (!response.ok) {
-            throw new Error("Error fetching property");
-        }
-        const data = await response.json();
-        return (
-            <Property property={data} />
-        )
-    } catch (error) {
-        console.error("Error:", error);
-        return (
-            <p>Error</p>
-        )
+    if (response.status === 404) {
+        notFound();
     }
+
+    let data;
+
+    try {
+        data = await response.json();
+
+    } catch {
+        data = null;
+    }
+
+    if (!response.ok) {
+        const message = data?.message
+        throw new Error(message || "Error fetching property");
+    }
+
+
+    return (
+        <Property property={data} />
+    )
+
 
 }
 

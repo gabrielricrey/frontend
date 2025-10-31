@@ -12,16 +12,17 @@ const Bookings = ({ data }: BookingsProp) => {
 
     return (
         <div>
+            {bookings.length < 1 &&
+                <h3>You have no bookings yet!</h3>
+            }
             <ul>
-                {bookings &&
+                {bookings.length > 0 &&
                     bookings.map(b => <BookingCard booking={b} key={b.id} />)
                 }
+
             </ul>
         </div>
     )
-
-
-
 
 }
 

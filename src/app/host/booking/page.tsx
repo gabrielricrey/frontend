@@ -4,8 +4,6 @@ import HostBookings from '@/components/booking/HostBookings';
 import { notFound } from 'next/navigation';
 
 const HostBookingsPage = async () => {
-
-
     const cookieStore = cookies();
     const sessionCookie = (await cookieStore).get("sb-wpsscnnnxurgkeoqwgjy-auth-token");
 

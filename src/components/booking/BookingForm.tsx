@@ -8,10 +8,11 @@ type BookingFormProps = {
     bookingId?: string;
     checkInDate?: string;
     checkOutDate?: string;
-    updateBooking?: boolean
+    updateBooking?: boolean;
+    propertyUserId: string;
 }
 
-const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate: checkOut, updateBooking }: BookingFormProps) => {
+const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate: checkOut, updateBooking, propertyUserId }: BookingFormProps) => {
 
     const [checkInDate, setCheckInDate] = useState<string>(checkIn || "");
     const [checkOutDate, setCheckOutDate] = useState<string>(checkOut || "");
@@ -54,37 +55,39 @@ const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate
     }
     return (
         <>
-            {
-                user?.user &&
-                <form onSubmit={onSubmit}>
-                    <label>
-                        Check-in
-                        <input
-                            type="date"
-                            value={checkInDate}
-                            min={new Date().toISOString().split("T")[0]}
-                            onChange={(e) => setCheckInDate(e.target.value)}
-                            className="border p-2 rounded w-full"
-                        />
-                    </label>
-                    <label>
-                        Check-out
-                        <input
-                            type="date"
-                            value={checkOutDate}
-                            min={checkInDate}
-                            onChange={(e) =>
-                                setCheckOutDate(e.target.value)
-                            }
-                            className="border p-2 rounded w-full"
-                        />
-                    </label>
-                    <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">{updateBooking ? "Update" : "Book"}</button>
-                </form>
-            }
-            {!user?.user &&
+            {user?.user ? (
+                user?.user.id !== propertyUserId ?
+                    <form onSubmit={onSubmit}>
+                        <label>
+                            Check-in
+                            <input
+                                type="date"
+                                value={checkInDate}
+                                min={new Date().toISOString().split("T")[0]}
+                                onChange={(e) => setCheckInDate(e.target.value)}
+                                className="border p-2 rounded w-full"
+                            />
+                        </label>
+                        <label>
+                            Check-out
+                            <input
+                                type="date"
+                                value={checkOutDate}
+                                min={checkInDate}
+                                onChange={(e) =>
+                                    setCheckOutDate(e.target.value)
+                                }
+                                className="border p-2 rounded w-full"
+                            />
+                        </label>
+                        <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">{updateBooking ? "Update" : "Book"}</button>
+                    </form> : <p>your own property</p>) :
+
+                !user?.user &&
                 <p>Sign in to be able to book!</p>
+
             }
+
         </>
     )
 }

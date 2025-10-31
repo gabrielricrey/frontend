@@ -6,9 +6,7 @@ type PropertyProp = {
 }
 
 const Property = ({ property }: PropertyProp) => {
-    const { id, image_url, name, description, price_per_night } = property;
-
-
+    const { id, image_url, name, description, price_per_night, user_id } = property;
 
     return (
         <div className="w-full flex justify-center">
@@ -23,7 +21,7 @@ const Property = ({ property }: PropertyProp) => {
                         </div>
                     </div>
                     <div className="flex-1">
-                        <BookingForm propertyId={id} />
+                        <BookingForm propertyId={id} propertyUserId={user_id} />
                     </div>
                 </div>
             </div>

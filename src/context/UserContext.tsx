@@ -71,7 +71,9 @@ export function UserProvider({ children }: PropsWithChildren<{}>) {
     }
 
     async function logout() {
+        await new AuthService().logout();
         setUser(null);
+
     }
 
     return (

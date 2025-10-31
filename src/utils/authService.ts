@@ -30,6 +30,18 @@ class AuthService {
             body: JSON.stringify({ email, password })
         });
     }
+
+    async logout() {
+        let url = `${this.authUrl}/logout`;
+
+        return await fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-type': 'Application/json'
+            }
+        })
+    }
 }
 
 export default AuthService;

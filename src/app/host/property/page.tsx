@@ -1,5 +1,7 @@
 import { cookies } from "next/headers"
+import { PlusIcon } from "@heroicons/react/16/solid";
 import HostProperties from "@/components/property/HostProperties";
+import Link from "next/link";
 
 export default async function PropertiesPage() {
     try {
@@ -23,7 +25,14 @@ export default async function PropertiesPage() {
         const data = await response.json();
         console.log(data);
         return (
-            <div className="">
+            <div>
+                <Link
+                    href={'/host/property/create'}
+                    className="flex p-2 border"
+                >
+                    <PlusIcon className="size-6" />
+                    <span>Create</span>
+                </Link>
                 <HostProperties data={data.properties} />
             </div>
         )
@@ -31,7 +40,8 @@ export default async function PropertiesPage() {
         console.error("Error:", error);
         return (
             <div className="mt-14 md:mt-16">
-                <HostProperties data={[]} />
+                {/* <HostProperties data={[]} /> */}
+                <p>Error getting properties</p>
             </div>
         )
 

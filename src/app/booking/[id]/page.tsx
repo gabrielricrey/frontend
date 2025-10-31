@@ -1,6 +1,7 @@
 import BookingForm from "@/components/booking/BookingForm";
 import Booking from "@/components/booking/Booking";
 import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
 
 type BookingPageProps = {
     params: {
@@ -10,38 +11,42 @@ type BookingPageProps = {
 
 const BookingPage = async ({ params }: BookingPageProps) => {
     const id = params.id;
-    try {
-        const cookieStore = cookies();
-        const sessionCookie = (await cookieStore).get("sb-wpsscnnnxurgkeoqwgjy-auth-token");
+    const cookieStore = cookies();
+    const sessionCookie = (await cookieStore).get("sb-wpsscnnnxurgkeoqwgjy-auth-token");
 
-        const baseUrl = process.env.BACKEND_BASE_URL || process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "";
-        const bookingUrl = `${baseUrl}/booking/${id}`;
+    const baseUrl = process.env.BACKEND_BASE_URL || process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "";
+    const bookingUrl = `${baseUrl}/booking/${id}`;
 
-        const response = await fetch(bookingUrl, {
-            method: 'GET',
-            headers: {
-                Cookie: `sb-wpsscnnnxurgkeoqwgjy-auth-token=${sessionCookie?.value}`
-            }
-        })
-
-        if (!response.ok) {
-            throw new Error(`Fetch failed with status ${response.status}`);
+    const response = await fetch(bookingUrl, {
+        method: 'GET',
+        headers: {
+            Cookie: `sb-wpsscnnnxurgkeoqwgjy-auth-token=${sessionCookie?.value}`
         }
+    })
 
-        const data = await response.json();
-
-        return (
-            <div>
-                <Booking booking={data.booking} />
-            </div>
-        )
-
-    } catch (error) {
-        console.error("Error fetching bookings:", error);
-
-        return <div>Erroe</div>
-        // return <Booking booking={{}} />;
+    if (response.status === 404) {
+        notFound();
     }
+
+    let data;
+
+    try {
+        data = await response.json();
+    } catch {
+        data = null;
+    }
+
+    if (!response.ok) {
+        const message = data?.message;
+        throw new Error(message || "Error fetching booking");
+    }
+
+    return (
+        <div>
+            <Booking booking={data.booking} />
+        </div>
+    )
 }
+
 
 export default BookingPage;

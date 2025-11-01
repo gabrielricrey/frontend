@@ -1,7 +1,10 @@
 interface NewUserProfile {
     first_name: string,
     last_name: string,
-    avatar_url: string,
+    avatar_url?: string,
+    email: string;
+    password: string;
+    confirm_password: string;
 }
 
 interface UserProfile extends NewUserProfile {

@@ -7,8 +7,6 @@ import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
     const [form, setForm] = useState<NewUserProfile>({
-        first_name: "",
-        last_name: "",
         email: "",
         password: "",
         confirm_password: "",
@@ -67,31 +65,7 @@ export default function RegisterForm() {
                 </div>
             )}
             <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
-                <div>
-                    <label htmlFor="first_name" className="block">First Name *</label>
-                    <input
-                        id="first_name"
-                        name="first_name"
-                        type="text"
-                        value={form.first_name}
-                        onChange={handleChange}
-                        required
-                        className="border p-2 rounded w-full"
-                    />
-                </div>
 
-                <div>
-                    <label htmlFor="last_name" className="block">Last Name *</label>
-                    <input
-                        id="last_name"
-                        name="last_name"
-                        type="text"
-                        value={form.last_name}
-                        onChange={handleChange}
-                        required
-                        className="border p-2 rounded w-full"
-                    />
-                </div>
 
                 <div>
                     <label htmlFor="email" className="block">Email *</label>

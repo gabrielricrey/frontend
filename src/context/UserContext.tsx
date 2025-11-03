@@ -61,7 +61,7 @@ export function UserProvider({ children }: PropsWithChildren<{}>) {
 
     async function register(email: string, password: string) {
         try {
-            const response = await new AuthService().register(email, password);
+            const response = await new AuthService().register({ email, password });
             if (!response.ok) {
                 throw new Error("Register failed");
             }

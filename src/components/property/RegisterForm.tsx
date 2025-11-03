@@ -25,7 +25,8 @@ export default function RegisterForm() {
         try {
             setValidationErrors(null);
             newUserProfileSchema.parse(form);
-            response = await new AuthService().register(form);
+            const { email, password } = form;
+            response = await new AuthService().register({ email, password });
         } catch (err) {
             if (err instanceof z.ZodError) {
                 console.log("Validation errors:", err.issues);

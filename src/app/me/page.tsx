@@ -1,12 +1,14 @@
 import React from 'react'
 import Logout from '@/components/Logout'
+import Profile from '@/components/profile/Profile'
 
-const page = () => {
+const Profilepage = () => {
     return (
-        <div>Profile
+        <div>
+            <Profile />
             <Logout />
         </div>
     )
 }
 
-export default page
+export default Profilepage;

@@ -5,7 +5,7 @@ type HostPropertyCardProps = {
     data: PropertyPreview
 }
 
-export default async function HostPropertyCard({ data }: HostPropertyCardProps) {
+export default function HostPropertyCard({ data }: HostPropertyCardProps) {
     return (
         <Link
             href={`/host/property/${data.id}`}

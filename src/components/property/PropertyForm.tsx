@@ -5,25 +5,39 @@ import HostPropertyService from "@/utils/hostPropertyService";
 import { useRouter } from "next/navigation";
 
 type PropertyFormProps = {
-    property?: Property
+    id?: String
 }
 
 
-const PropertyForm = ({ property }: PropertyFormProps) => {
+const PropertyForm = ({ id }: PropertyFormProps) => {
 
-
-    const [propertyName, setPropertyName] = useState(property?.name || "");
-    const [description, setDescription] = useState(property?.description || "");
-    const [costPerNight, setCostPerNight] = useState<number | "">(property?.price_per_night || "");
-    const [isAvailable, setIsAvailable] = useState(property?.is_available || false);
-    const [imageUrl, setImageUrl] = useState(property?.image_url || "");
+    const [propertyName, setPropertyName] = useState("");
+    const [description, setDescription] = useState("");
+    const [costPerNight, setCostPerNight] = useState<number | "">("");
+    const [isAvailable, setIsAvailable] = useState(false);
+    const [imageUrl, setImageUrl] = useState("");
 
     const [isUpdate, setIsUpdate] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
-        if (property) {
+        const fetchProperty = async () => {
+            const response = await new HostPropertyService().getProperty(id!)
+            const data = await response.json();
+            const property: Property = data.property;
+            console.log(data);
+            setPropertyName(property.name);
+            setDescription(property.description);
+            setCostPerNight(property.price_per_night);
+            setIsAvailable(property.is_available);
+            setImageUrl(property.image_url);
+
+        }
+
+        if (id) {
             setIsUpdate(true);
+            fetchProperty();
+
         }
     }, [])
 
@@ -53,7 +67,7 @@ const PropertyForm = ({ property }: PropertyFormProps) => {
                 response = await new HostPropertyService().createProperty(propertyData);
 
             } else {
-                response = await new HostPropertyService().updateProperty(property!.id, propertyData);
+                response = await new HostPropertyService().updateProperty(id!, propertyData);
             }
 
 

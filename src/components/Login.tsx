@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
 import { useUser } from "@/context/UserContext";
-import { useRouter } from "next/navigation";
+
 import Link from "next/link";
 const Login = () => {
     const user = useUser();
-    const router = useRouter();
+
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -14,8 +14,9 @@ const Login = () => {
         e.preventDefault();
 
         user?.actions.login(email, password);
-        router.push('/');
+
     }
+
 
     return (
         <div>
@@ -25,13 +26,13 @@ const Login = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
-                    className="text-center" />
+                    className={`text-center ${user?.failedLogin ? "border-2 border-red-400" : ""}`} />
                 <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="********"
-                    className="text-center" />
+                    className={`text-center ${user?.failedLogin ? "border-2 border-red-400" : ""}`} />
                 <button type="submit" className="p-2 rounded-md bg-blue-400 text-white">Login</button>
             </form>
             <Link href={'/register'}> Not a user? Click here to register</Link>

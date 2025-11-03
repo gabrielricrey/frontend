@@ -8,11 +8,10 @@ type BookingFormProps = {
     bookingId?: string;
     checkInDate?: string;
     checkOutDate?: string;
-    updateBooking?: boolean;
-    propertyUserId: string;
+    propertyUserId?: string;
 }
 
-const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate: checkOut, updateBooking, propertyUserId }: BookingFormProps) => {
+const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate: checkOut, propertyUserId }: BookingFormProps) => {
 
     const [checkInDate, setCheckInDate] = useState<string>(checkIn || "");
     const [checkOutDate, setCheckOutDate] = useState<string>(checkOut || "");
@@ -22,8 +21,7 @@ const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!updateBooking) {
-            console.log("inside create");
+        if (!bookingId) {
             try {
                 const response = await new BookingService().createBooking(propertyId!, checkInDate, checkOutDate);
                 if (!response.ok) {
@@ -36,7 +34,6 @@ const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate
                 console.log(error);
             }
         } else {
-            console.log("inside update");
             try {
                 const response = await new BookingService().updateBooking({ bookingId, checkInDate, checkOutDate });
                 if (!response.ok) {
@@ -80,7 +77,7 @@ const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate
                                 className="border p-2 rounded w-full"
                             />
                         </label>
-                        <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">{updateBooking ? "Update" : "Book"}</button>
+                        <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">{bookingId ? "Update" : "Book"}</button>
                     </form> : <p>your own property</p>) :
 
                 !user?.user &&

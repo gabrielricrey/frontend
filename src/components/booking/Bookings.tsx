@@ -1,22 +1,30 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BookingCard from "./BookingCard";
+import BookingService from "@/utils/bookingService";
 
-type BookingsProp = {
-    data: BookingWithProperty[],
-}
 
-const Bookings = ({ data }: BookingsProp) => {
-    console.log(data);
-    const [bookings, setBookings] = useState(data || []);;
+export default function Bookings() {
+
+    const [bookings, setBookings] = useState<BookingWithProperty[] | null>(null);
+
+    useEffect(() => {
+        const fetchBookings = async () => {
+            const response = await new BookingService().getBookings();
+            const data = await response.json();
+            setBookings(data.bookings);
+        }
+
+        fetchBookings();
+    }, [])
 
     return (
         <div>
-            {bookings.length < 1 &&
+            {bookings && bookings.length < 1 &&
                 <h3>You have no bookings yet!</h3>
             }
             <ul>
-                {bookings.length > 0 &&
+                {bookings && bookings.length > 0 &&
                     bookings.map(b => <BookingCard booking={b} key={b.id} />)
                 }
 
@@ -26,4 +34,3 @@ const Bookings = ({ data }: BookingsProp) => {
 
 }
 
-export default Bookings

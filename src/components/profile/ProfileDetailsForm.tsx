@@ -32,23 +32,23 @@ export default function ProfileDetailsForm() {
     }
 
     return (
-        <form onSubmit={onSubmit}>
-            <div>
+        <form onSubmit={onSubmit} className="w-full md:w-3/4 border">
+            <div className="flex justify-center">
                 <label htmlFor="first_name"> First name:
                     <input type="text" name="first_name" value={form.first_name} onChange={handleChange} />
                 </label>
             </div>
-            <div>
+            <div className="flex justify-center">
                 <label htmlFor="lastName"> Last name:
                     <input type="last_name" name="last_name" value={form.last_name} onChange={handleChange} />
                 </label>
             </div>
-            <div>
+            <div className="flex justify-center">
                 <label htmlFor="imageUrl"> Image URL:
                     <input type="avatar_url" name="avatar_url" value={form.avatar_url} onChange={handleChange} />
                 </label>
             </div>
-            <button type="submit">Update</button>
+            <button type="submit" className="border p-2 bg-blue-400">Update</button>
         </form>
     )
 }

@@ -1,7 +1,4 @@
-import BookingForm from "@/components/booking/BookingForm";
 import Booking from "@/components/booking/Booking";
-import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
 
 type BookingPageProps = {
     params: {

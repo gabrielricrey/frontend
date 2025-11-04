@@ -24,9 +24,7 @@ export default function HostPropertyCard({ data }: HostPropertyCardProps) {
                     <h3 className="text-lg font-semibold text-gray-900 truncate">
                         {data.name}
                     </h3>
-                    {data.location && (
-                        <p className="text-gray-500 text-sm mt-1 truncate">{data.location}</p>
-                    )}
+
                 </div>
             </div>
         </Link>

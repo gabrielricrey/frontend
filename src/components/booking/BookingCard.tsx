@@ -20,7 +20,7 @@ const BookingCard = ({ booking }: BookingCardProp) => {
         <Link href={`/booking/${id}`}>
             <li className="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition cursor-pointer flex flex-col md:flex-row border border-gray-200">
                 {/* Bild */}
-                <div className="relative w-full md:w-48 h-48 md:h-auto flex-shrink-0">
+                <div className="relative w-full md:w-48 h-48 md:h-auto">
                     <Image
                         src={properties.image_url}
                         alt={properties.name}

@@ -14,6 +14,7 @@ import Link from "next/link";
 import BecomeHostLabel from "./BecomeHostLabel";
 import { useHostMode } from "@/context/HostModeContext";
 import { PropsWithChildren } from "react";
+import clsx from "clsx";
 
 const Navbar = ({ children }: PropsWithChildren) => {
     const pathname = usePathname();
@@ -24,10 +25,10 @@ const Navbar = ({ children }: PropsWithChildren) => {
 
     return (
         <>
-            <nav className="fixed top-0 left-0 w-full h-14 md:h-16 bg-white shadow-sm flex items-center justify-between px-6 md:px-10 z-50">
+            <nav className={clsx("fixed top-0 left-0 w-full h-14 md:h-16 shadow-sm flex items-center justify-between px-6 md:px-10 z-50", hostMode.hostMode ? "bg-gray-400" : "bg-white")}>
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-1">
-                    <p className="text-2xl font-bold text-blue-500 tracking-tight">Stay</p>
+                    <p className="text-2xl font-bold text-black tracking-tight">Stay{hostMode.hostMode && <span className="text-blue-500">host</span>}</p>
                 </Link>
 
                 {/* Search (only on root) */}
@@ -73,7 +74,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
                     {user?.user ? (
                         <Link href="/me" className="hidden md:flex items-center gap-1 hover:text-blue-500">
                             <UserCircleIcon className="w-5 h-5" />
-                            <span>Profile</span>
+                            <span>{user.user.first_name}</span>
                         </Link>
                     ) : (
                         <Link href="/login" className="hidden md:flex items-center gap-1 hover:text-blue-500">
@@ -89,10 +90,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
                             <BecomeHostLabel />
                         ))}
 
-                    {/* Mobile menu icon */}
-                    <button className="md:hidden border rounded-full p-1.5 hover:bg-gray-100 transition">
-                        <Bars3Icon className="w-6 h-6 text-gray-700" />
-                    </button>
+
                 </div>
             </nav>
             {children}

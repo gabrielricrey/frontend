@@ -15,18 +15,14 @@ class UserService {
         return await fetch(url, { credentials: 'include' });
     }
 
-
-
-
     async editUserProfile({ is_host, first_name, last_name, avatar_url }: Partial<UserProfile>) {
         let url = `${this.userUrl}/`;
-        console.log("INSIDE");
-        const updateData = {
-            is_host,
-            first_name,
-            last_name,
-            avatar_url
-        }
+
+        const updateData: Record<string, any> = {};
+        if (is_host !== undefined) updateData.is_host = is_host;
+        if (first_name !== undefined) updateData.first_name = first_name;
+        if (last_name !== undefined) updateData.last_name = last_name;
+        if (avatar_url !== undefined) updateData.avatar_url = avatar_url;
 
         console.log("Update data: ", updateData);
 

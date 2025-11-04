@@ -97,7 +97,7 @@ const PropertyForm = ({ id }: PropertyFormProps) => {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-xl shadow-md">
+        <div className="max-w-md mx-auto mt-16 md:mt-20 p-6 bg-white rounded-xl shadow-md">
             <form onSubmit={onSubmit} className="flex flex-col gap-4">
                 <label className="flex flex-col">
                     <span className="font-medium mb-1">Name</span>

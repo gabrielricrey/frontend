@@ -61,16 +61,20 @@ export default function Booking({ id }: BookingProp) {
                         width={400}
                         height={400}
                         alt={booking.properties.name} />
-                    <div className="relative text-center">
+                    <div className="relative flex flex-col items-center">
                         <h3 className="text-2xl font-bold mt-3 mb-4">{booking.properties.name}</h3>
-                        <p>Check In: {booking.check_in_date}</p>
-                        <p>Check Out: {booking.check_out_date}</p>
+                        <div className="flex">
+
+                            <p>{booking.check_in_date} → {booking.check_out_date}</p>
+
+                        </div>
+                        <p className="font-bold">{booking.total_cost}$</p>
                         <p className={`absolute top-2 right-2 p-1 rounded-md ${booking.status === 'pending' ? "bg-amber-300" : booking.status === 'confirmed' ? "bg-green-400" : "bg-red-500"}`}>{booking.status}</p>
                     </div>
 
                     {showEditForm &&
                         <div>
-                            <BookingForm bookingId={id} checkInDate={booking.check_in_date} checkOutDate={booking.check_out_date} />
+                            <BookingForm bookingId={id} checkInDate={booking.check_in_date} checkOutDate={booking.check_out_date} pricePerNight={booking.properties.price_per_night} />
                         </div>
                     }
                     {showDeleteModal &&

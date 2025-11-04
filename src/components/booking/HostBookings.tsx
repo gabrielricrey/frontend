@@ -33,7 +33,7 @@ export default function HostBookings() {
 
 
     return (
-        <div>
+        <div className="mt-16 md:mt-20">
             <ul>
                 {bookings && bookings.map((b, index) => <HostBookingCard booking={b} key={b.id} index={index} updateBookings={updateBookings} />)}
             </ul>

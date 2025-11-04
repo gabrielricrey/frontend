@@ -28,19 +28,11 @@ export default function Profile() {
                     </p>
                 </div>
 
-                <div>
-                    <p className="text-gray-600 font-medium">Email:</p>
-                    <p className="text-gray-900 text-lg font-semibold">
-                        {user?.user?.email}
+                <div className="flex gap-2 items-center">
+                    <p className="text-gray-600 font-medium">Avatar URL:</p>
+                    <p className="text-gray-900 text-lg font-medium">
+                        {user?.user?.avatar_url}
                     </p>
-                </div>
-
-                <div>
-                    <p className="text-gray-600 font-medium">Host:</p>
-                    {user?.user?.is_host ?
-                        <p className="text-green-600 font-semibold">Yes</p> :
-                        <p className="text-red-600 font-semibold">No</p>
-                    }
                 </div>
             </div>
         </div>

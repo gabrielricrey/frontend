@@ -31,7 +31,7 @@ const Property = ({ property }: PropertyProp) => {
                     </div>
 
                     <div className="flex-1 lg:max-w-md border rounded-2xl shadow-md p-6 bg-gray-50">
-                        <BookingForm propertyId={id} propertyUserId={user_id} />
+                        <BookingForm propertyId={id} propertyUserId={user_id} pricePerNight={price_per_night} />
                     </div>
                 </div>
             </div>

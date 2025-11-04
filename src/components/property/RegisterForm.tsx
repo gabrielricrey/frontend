@@ -57,7 +57,7 @@ export default function RegisterForm() {
     };
 
     return (
-        <>
+        <div className="flex justify-center items-center h-screen">
             {validationErrors && (
                 <div className="mb-4 p-3 border border-red-300 rounded bg-red-50">
                     {validationErrors.map((issue, i) => (
@@ -65,10 +65,10 @@ export default function RegisterForm() {
                     ))}
                 </div>
             )}
-            <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
+            <form onSubmit={handleSubmit} className="w-full space-y-4 max-w-md shadow-md flex flex-col items-center p-2 rounded-md">
 
 
-                <div>
+                <div className="w-full">
                     <label htmlFor="email" className="block">Email *</label>
                     <input
                         id="email"
@@ -81,7 +81,7 @@ export default function RegisterForm() {
                     />
                 </div>
 
-                <div>
+                <div className="w-full">
                     <label htmlFor="password" className="block">Password *</label>
                     <input
                         id="password"
@@ -94,7 +94,7 @@ export default function RegisterForm() {
                     />
                 </div>
 
-                <div>
+                <div className="w-full">
                     <label htmlFor="confirm_password" className="block">Confirm Password *</label>
                     <input
                         id="confirm_password"
@@ -107,10 +107,10 @@ export default function RegisterForm() {
                     />
                 </div>
 
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer">
                     Register
                 </button>
             </form>
-        </>
+        </div>
     );
 }

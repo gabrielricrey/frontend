@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BookingForm from "./BookingForm";
 import { XMarkIcon, PencilSquareIcon } from "@heroicons/react/16/solid";
 import BookingService from "@/utils/bookingService";
@@ -8,17 +8,31 @@ import Image from "next/image";
 
 
 type BookingProp = {
-    booking: BookingWithProperty
+    id: string
 }
 
-const Booking = ({ booking }: BookingProp) => {
+export default function Booking({ id }: BookingProp) {
     const [showEditForm, setShowEditForm] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    console.log(booking);
+    const [booking, setBooking] = useState<BookingWithProperty | null>(null)
+
+    const bookingId = id;
+
+    useEffect(() => {
+        const fetchBooking = async () => {
+            const response = await new BookingService().getBooking(id);
+            const data = await response.json();
+            console.log(data);
+            setBooking(data.booking);
+        }
+
+        fetchBooking();
+    }, [])
+
+
 
     const handleClick = async () => {
         try {
-            const bookingId = booking.id;
             const status: string = 'cancelled';
             const response = await new BookingService().updateBooking({ bookingId, status });
             if (!response.ok) {
@@ -30,35 +44,44 @@ const Booking = ({ booking }: BookingProp) => {
     }
 
     return (
-        <div className="border rounded-md p-2 relative">
-            <div className="flex gap-1 absolute right-2 top-2">
-                <button onClick={() => setShowEditForm(prev => !prev)}>
-                    <PencilSquareIcon className="size-6" />
-                </button>
-                <button onClick={() => setShowDeleteModal(prev => !prev)}>
-                    <XMarkIcon className="size-6" />
-                </button>
-            </div>
-            <Image
-                src={booking.properties.image_url}
-                width={400}
-                height={400}
-                alt={booking.properties.name} />
-            <h3>{booking.properties.name}</h3>
-            <p>{booking.check_in_date}</p>
-            <p>{booking.check_out_date}</p>
-            <p> Status: {booking.status}</p>
+        <>
+            {booking &&
+                <div className="w-full h-screen md:w-3/4 shadow-sm rounded-2xl overflow-hidden relative mt-16 md:mt-20">
+                    <div className="flex gap-1 absolute right-2 top-2 text-gray-700 bg-white rounded-2xl p-2">
+                        <button onClick={() => setShowEditForm(prev => !prev)}>
+                            <PencilSquareIcon className="w-5 h-5 hover:text-blue-500 cursor-pointer" />
+                        </button>
+                        <button onClick={() => setShowDeleteModal(prev => !prev)}>
+                            <XMarkIcon className="w-5 h-5 hover:text-blue-500 cursor-pointer" />
+                        </button>
+                    </div>
+                    <Image
+                        className="w-full h-64 md:h-80 object-cover"
+                        src={booking.properties.image_url}
+                        width={400}
+                        height={400}
+                        alt={booking.properties.name} />
+                    <div className="relative flex flex-col items-center">
+                        <h3 className="text-2xl font-bold mt-3 mb-4">{booking.properties.name}</h3>
+                        <div className="flex">
 
-            {showEditForm &&
-                <div>
-                    <BookingForm bookingId={booking.id} checkInDate={booking.check_in_date} checkOutDate={booking.check_out_date} updateBooking={true} />
+                            <p>{booking.check_in_date} → {booking.check_out_date}</p>
+
+                        </div>
+                        <p className="font-bold">{booking.total_cost}$</p>
+                        <p className={`absolute top-2 right-2 p-1 rounded-md ${booking.status === 'pending' ? "bg-amber-300" : booking.status === 'confirmed' ? "bg-green-400" : "bg-red-500"}`}>{booking.status}</p>
+                    </div>
+
+                    {showEditForm &&
+                        <div>
+                            <BookingForm bookingId={id} checkInDate={booking.check_in_date} checkOutDate={booking.check_out_date} pricePerNight={booking.properties.price_per_night} />
+                        </div>
+                    }
+                    {showDeleteModal &&
+                        <CancelBookingModal handleClick={handleClick} />
+                    }
                 </div>
             }
-            {showDeleteModal &&
-                <CancelBookingModal handleClick={handleClick} />
-            }
-        </div>
+        </>
     )
 }
-
-export default Booking

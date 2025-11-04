@@ -54,10 +54,10 @@ const HostBookingCard = ({ booking, updateBookings, index }: HostBookingCardProp
                     className="w-full h-48 object-cover"
                 />
             )}
-            <div className="p-4 flex">
-                <div>
+            <div className="p-4 flex relative">
+                <div className=''>
 
-                    <h2 className="text-xl font-semibold text-gray-800">{booking.property_name}</h2>
+                    <h4 className="text-xl font-semibold text-gray-800">{booking.property_name}</h4>
                     <p className="text-gray-600 mt-1">
                         Booked by <span className="font-medium">{booking.user_profiles.first_name}</span>
                     </p>
@@ -75,13 +75,13 @@ const HostBookingCard = ({ booking, updateBookings, index }: HostBookingCardProp
                     >
                         {booking.status.toUpperCase()}
                     </span>
+                    {booking.status === 'pending' &&
+                        <div className='flex absolute bottom-10 right-10 gap-2'>
+                            <button onClick={() => handleClick('accept')} className=' bg-green-500 rounded-md'><CheckIcon className='size-10 text-white cursor-pointer' /></button>
+                            <button onClick={() => handleClick('reject')} className=' bg-red-500 rounded-md'><XMarkIcon className='size-10 text-white cursor-pointer' /></button>
+                        </div>
+                    }
                 </div>
-                {booking.status === 'pending' &&
-                    <div className='flex'>
-                        <button onClick={() => handleClick('accept')} className='border border-green-500 rounded-md'><CheckIcon className='size-6 text-green-500 ' /></button>
-                        <button onClick={() => handleClick('reject')} className='border border-red-500 rounded-md'><XMarkIcon className='size-6 text-red-500 ' /></button>
-                    </div>
-                }
             </div>
         </div>
     );

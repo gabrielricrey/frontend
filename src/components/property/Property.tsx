@@ -2,32 +2,41 @@ import Image from "next/image";
 import BookingForm from "../booking/BookingForm";
 
 type PropertyProp = {
-    property: Property
-}
+    property: Property;
+};
 
 const Property = ({ property }: PropertyProp) => {
     const { id, image_url, name, description, price_per_night, user_id } = property;
 
     return (
-        <div className="w-full flex justify-center">
-            <div className="w-full lg:w-3/4">
-                <Image className="w-full h-48 object-cover" src={image_url} alt={name} width={400} height={192} />
-                <div className="p-4 w-full flex">
+        <div className="w-full flex justify-center mt-16 md:mt-20  px-4 md:px-8">
+            <div className="w-full lg:w-3/4 bg-white rounded-2xl shadow-sm overflow-hidden">
+                <Image
+                    className="w-full h-64 md:h-80 object-cover"
+                    src={image_url}
+                    alt={name}
+                    width={800}
+                    height={400}
+                    priority
+                />
+
+                <div className="p-6 md:p-10 flex flex-col lg:flex-row gap-8">
                     <div className="flex-1">
-                        <h2 className="text-xl font-semibold mb-2">{name}</h2>
-                        <p className="text-gray-600 text-sm mb-4">{description}</p>
-                        <div className="text-lg font-bold text-gray-800">
-                            ${price_per_night} / night
+                        <h1 className="text-3xl font-semibold text-gray-900 mb-3">{name}</h1>
+                        <p className="text-gray-600 leading-relaxed mb-6">{description}</p>
+                        <div className="text-2xl font-bold text-gray-800">
+                            ${price_per_night}
+                            <span className="text-gray-500 text-lg font-medium"> / night</span>
                         </div>
                     </div>
-                    <div className="flex-1">
-                        <BookingForm propertyId={id} propertyUserId={user_id} />
+
+                    <div className="flex-1 lg:max-w-md border rounded-2xl shadow-md p-6 bg-gray-50">
+                        <BookingForm propertyId={id} propertyUserId={user_id} pricePerNight={price_per_night} />
                     </div>
                 </div>
             </div>
-
         </div>
-    )
-}
+    );
+};
 
-export default Property
+export default Property;

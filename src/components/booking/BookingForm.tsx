@@ -1,29 +1,35 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BookingService from "@/utils/bookingService";
 import { useUser } from "@/context/UserContext";
+import { differenceInDays, addDays } from "date-fns";
 
 type BookingFormProps = {
     propertyId?: string;
     bookingId?: string;
     checkInDate?: string;
     checkOutDate?: string;
-    updateBooking?: boolean;
-    propertyUserId: string;
+    propertyUserId?: string;
+    pricePerNight: number;
 }
 
-const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate: checkOut, updateBooking, propertyUserId }: BookingFormProps) => {
+const BookingForm = ({ propertyId, propertyUserId, pricePerNight, bookingId, checkInDate: checkIn, checkOutDate: checkOut, }: BookingFormProps) => {
 
-    const [checkInDate, setCheckInDate] = useState<string>(checkIn || "");
-    const [checkOutDate, setCheckOutDate] = useState<string>(checkOut || "");
+    const [checkInDate, setCheckInDate] = useState<string>(checkIn || new Date().toISOString().split("T")[0]);
+    const [checkOutDate, setCheckOutDate] = useState<string>(checkOut || addDays(new Date(checkInDate), 1).toISOString().split("T")[0]);
+    const [totalCost, setTotalCost] = useState<number>(0);
+
+    useEffect(() => {
+        const days = differenceInDays(new Date(checkOutDate), new Date(checkInDate));
+        setTotalCost(() => days * pricePerNight)
+    }, [checkOutDate, checkInDate])
 
     const user = useUser();
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!updateBooking) {
-            console.log("inside create");
+        if (!bookingId) {
             try {
                 const response = await new BookingService().createBooking(propertyId!, checkInDate, checkOutDate);
                 if (!response.ok) {
@@ -36,7 +42,6 @@ const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate
                 console.log(error);
             }
         } else {
-            console.log("inside update");
             try {
                 const response = await new BookingService().updateBooking({ bookingId, checkInDate, checkOutDate });
                 if (!response.ok) {
@@ -54,7 +59,7 @@ const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate
 
     }
     return (
-        <>
+        <div>
             {user?.user ? (
                 user?.user.id !== propertyUserId ?
                     <form onSubmit={onSubmit}>
@@ -73,14 +78,17 @@ const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate
                             <input
                                 type="date"
                                 value={checkOutDate}
-                                min={checkInDate}
+                                min={checkInDate ? addDays(new Date(checkInDate), 1).toISOString().split("T")[0] : new Date().toISOString().split("T")[0]}
                                 onChange={(e) =>
                                     setCheckOutDate(e.target.value)
                                 }
                                 className="border p-2 rounded w-full"
                             />
                         </label>
-                        <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">{updateBooking ? "Update" : "Book"}</button>
+
+                        <p >Total cost: {totalCost > 0 && <span>{totalCost} $</span>}</p>
+
+                        <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">{bookingId ? "Update" : "Book"}</button>
                     </form> : <p>your own property</p>) :
 
                 !user?.user &&
@@ -88,7 +96,7 @@ const BookingForm = ({ propertyId, bookingId, checkInDate: checkIn, checkOutDate
 
             }
 
-        </>
+        </div >
     )
 }
 

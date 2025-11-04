@@ -1,5 +1,5 @@
 type UpdateBooking = {
-    bookingId: string | undefined,
+    bookingId: string,
     checkInDate?: string,
     checkOutDate?: string,
     status?: string
@@ -58,8 +58,6 @@ class BookingService {
         const updateData = status
             ? { status }
             : { check_in_date, check_out_date };
-
-        console.log(updateData);
 
         let url = `${this.bookingUrl}/${bookingId}`;
 

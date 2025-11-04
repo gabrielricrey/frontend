@@ -10,12 +10,12 @@ class HostPropertyService {
     }
 
     async getProperties() {
-        return await fetch(this.propertyUrl);
+        return await fetch(this.propertyUrl, { credentials: 'include' });
     }
 
-    async getProperty(id: string) {
+    async getProperty(id: String) {
         let url = `${this.propertyUrl}/${id}`;
-        return await fetch(url);
+        return await fetch(url, { credentials: 'include' });
     }
 
     async createProperty(data: NewProperty) {
@@ -32,7 +32,7 @@ class HostPropertyService {
 
     }
 
-    async updateProperty(id: string, data: NewProperty) {
+    async updateProperty(id: String, data: NewProperty) {
         let url = `${this.propertyUrl}/${id}`;
 
         return await fetch(url, {

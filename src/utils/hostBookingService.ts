@@ -9,6 +9,12 @@ class HostBookingService {
         this.bookingUrl = `${this.baseUrl}/host/booking`
     }
 
+    async getBookings() {
+        let url = this.bookingUrl;
+
+        return await fetch(url, { credentials: 'include' })
+    }
+
 
     async updateBooking(bookingId: string, status: string) {
 

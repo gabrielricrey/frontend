@@ -1,14 +1,22 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HostBookingCard from "./HostBookingCard";
+import HostBookingService from "@/utils/hostBookingService";
 
+export default function HostBookings() {
+    const [bookings, setHostBookings] = useState<BookingWithUserAndProperty[] | []>([]);
 
-type HostBookingsProp = {
-    data: BookingWithUserAndProperty[];
-}
+    useEffect(() => {
+        const fetchBookings = async () => {
+            const response = await new HostBookingService().getBookings();
+            const data = await response.json();
+            console.log(data);
+            setHostBookings(data.hostBookings);
+        }
 
-const HostBookings = ({ data }: HostBookingsProp) => {
-    const [bookings, setHostBookings] = useState(data || []);
+        fetchBookings();
+    }, [])
+
 
     const updateBookings = (index: number, status: string) => {
 
@@ -20,14 +28,14 @@ const HostBookings = ({ data }: HostBookingsProp) => {
         }
 
         setHostBookings(updatedArray);
-
     }
 
-    console.log(data);
+
+
     return (
-        <div>
+        <div className="mt-16 md:mt-20">
             <ul>
-                {bookings.map((b, index) => <HostBookingCard booking={b} key={b.id} index={index} updateBookings={updateBookings} />)}
+                {bookings && bookings.map((b, index) => <HostBookingCard booking={b} key={b.id} index={index} updateBookings={updateBookings} />)}
             </ul>
         </div>
     )
@@ -35,5 +43,3 @@ const HostBookings = ({ data }: HostBookingsProp) => {
 
 
 }
-
-export default HostBookings

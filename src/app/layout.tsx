@@ -33,8 +33,9 @@ export default function RootLayout({
       >
         <UserProvider>
           <HostModeProvider>
-            <Navbar />
-            {children}
+            <Navbar>
+              {children}
+            </Navbar>
             <BottomNav />
           </HostModeProvider>
         </UserProvider>

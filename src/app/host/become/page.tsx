@@ -12,7 +12,7 @@ export default async function BecomeHost() {
     };
 
     return (
-        <div>
+        <div className="flex justify-center items-center h-screen">
             <BecomeHostButton />
         </div>
     )

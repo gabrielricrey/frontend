@@ -25,7 +25,7 @@ export default function Bookings() {
     }, []);
 
     return (
-        <div className="w-full flex justify-center px-4 md:px-8 mt-8">
+        <div className="w-full flex justify-center px-4 md:px-8 mt-16 md:mt-18">
             <div className="w-full max-w-6xl">
                 <h2 className="text-3xl font-semibold text-gray-900 mb-8 text-center">
                     Your Bookings

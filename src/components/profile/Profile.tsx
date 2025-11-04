@@ -3,24 +3,47 @@ import { useUser } from "@/context/UserContext";
 import Link from "next/link";
 
 export default function Profile() {
-
     const user = useUser();
 
     return (
-        <div className="w-full md:w-3/4 flex flex-col border">
-            <div className="flex">
-                <div className="border rounded-md w-5 h-5">
-
+        <div className="w-full max-w-3xl mx-auto mt-8 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-6">
+                <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-2xl font-bold">
+                    {user?.user?.first_name?.[0] || "U"}
                 </div>
-                <div>
-                    <Link href={'/me/update'}>Edit profile</Link>
-                </div>
+                <Link
+                    href="/me/update"
+                    className="text-blue-500 font-medium hover:underline"
+                >
+                    Edit profile
+                </Link>
             </div>
-            <div>
+
+            {/* User Info */}
+            <div className="space-y-4">
                 <div>
-                    <p>Name: <span>{user?.user?.first_name} {user?.user?.last_name}</span></p>
+                    <p className="text-gray-600 font-medium">Name:</p>
+                    <p className="text-gray-900 text-lg font-semibold">
+                        {user?.user?.first_name} {user?.user?.last_name}
+                    </p>
+                </div>
+
+                <div>
+                    <p className="text-gray-600 font-medium">Email:</p>
+                    <p className="text-gray-900 text-lg font-semibold">
+                        {user?.user?.email}
+                    </p>
+                </div>
+
+                <div>
+                    <p className="text-gray-600 font-medium">Host:</p>
+                    {user?.user?.is_host ?
+                        <p className="text-green-600 font-semibold">Yes</p> :
+                        <p className="text-red-600 font-semibold">No</p>
+                    }
                 </div>
             </div>
         </div>
-    )
+    );
 }

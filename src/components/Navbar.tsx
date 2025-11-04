@@ -74,7 +74,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
                     {user?.user ? (
                         <Link href="/me" className="hidden md:flex items-center gap-1 hover:text-blue-500">
                             <UserCircleIcon className="w-5 h-5" />
-                            <span>{user.user.first_name}</span>
+                            <span>{user.user.first_name ? user.user.first_name : "Profile"}</span>
                         </Link>
                     ) : (
                         <Link href="/login" className="hidden md:flex items-center gap-1 hover:text-blue-500">

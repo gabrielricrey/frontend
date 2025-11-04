@@ -4,6 +4,7 @@ import { createContext, PropsWithChildren, useState, useEffect, useContext } fro
 import UserService from "@/utils/userService";
 import AuthService from "@/utils/authService";
 import { useRouter } from "next/navigation";
+import { useHostMode } from "./HostModeContext";
 
 
 type AuthActions = {
@@ -28,6 +29,7 @@ export function UserProvider({ children }: PropsWithChildren<{}>) {
     const [failedLogin, setFailedLogin] = useState(false);
 
     const router = useRouter();
+    const hostMode = useHostMode();
 
 
     async function fetchUserProfile() {
@@ -87,7 +89,7 @@ export function UserProvider({ children }: PropsWithChildren<{}>) {
     async function logout() {
         await new AuthService().logout();
         setUser(null);
-
+        hostMode.actions.turnOffHostMode();
     }
 
     return (

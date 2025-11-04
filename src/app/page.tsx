@@ -16,12 +16,12 @@ export default async function Home() {
   };
 
   return (
-    <>
+    <div>
       <Hero />
       <main>
         <Properties />
       </main>
-    </>
+    </div>
   );
 
 

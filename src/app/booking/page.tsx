@@ -3,7 +3,9 @@ import Bookings from "@/components/booking/Bookings";
 const BookingPage = () => {
 
     return (
-        <Bookings />
+        <div>
+            <Bookings />
+        </div>
     )
 
 }

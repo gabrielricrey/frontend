@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import BookingService from "@/utils/bookingService";
 import { useUser } from "@/context/UserContext";
 import { differenceInDays, addDays } from "date-fns";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 type BookingFormProps = {
     propertyId?: string;
@@ -11,9 +13,10 @@ type BookingFormProps = {
     checkOutDate?: string;
     propertyUserId?: string;
     pricePerNight: number;
+    onUpdate: () => void;
 }
 
-const BookingForm = ({ propertyId, propertyUserId, pricePerNight, bookingId, checkInDate: checkIn, checkOutDate: checkOut, }: BookingFormProps) => {
+const BookingForm = ({ propertyId, propertyUserId, pricePerNight, bookingId, checkInDate: checkIn, checkOutDate: checkOut, onUpdate }: BookingFormProps) => {
 
     const [checkInDate, setCheckInDate] = useState<string>(checkIn || new Date().toISOString().split("T")[0]);
     const [checkOutDate, setCheckOutDate] = useState<string>(checkOut || addDays(new Date(checkInDate), 1).toISOString().split("T")[0]);
@@ -25,35 +28,46 @@ const BookingForm = ({ propertyId, propertyUserId, pricePerNight, bookingId, che
     }, [checkOutDate, checkInDate])
 
     const user = useUser();
+    const router = useRouter();
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!bookingId) {
-            try {
-                const response = await new BookingService().createBooking(propertyId!, checkInDate, checkOutDate);
-                if (!response.ok) {
-                    throw new Error("Error create booking");
 
+            const response = await new BookingService().createBooking(propertyId!, checkInDate, checkOutDate);
+            if (response.status === 400) {
+                let data = await response.json();
+                if (data.message === "Property already booked for these dates") {
+                    toast.warning("Property not available these dates")
+                    return
                 }
-                const data = await response.json();
-                console.log(data);
-            } catch (error) {
-                console.log(error);
             }
+            if (!response.ok) {
+                toast.error("Error create booking!");
+                throw new Error("Error create booking");
+
+            }
+            toast.success("Booking created!")
+            const data = await response.json();
+            router.push(`/booking/${data.bookingId}`);
+            console.log(data);
+
+
         } else {
-            try {
-                const response = await new BookingService().updateBooking({ bookingId, checkInDate, checkOutDate });
-                if (!response.ok) {
-                    console.log(response);
-                    throw new Error("Error update booking");
 
-                }
-                const data = await response.json();
-                console.log(data);
-            } catch (error) {
-                console.log(error);
+            const response = await new BookingService().updateBooking({ bookingId, checkInDate, checkOutDate });
+            if (!response.ok) {
+                console.log(response);
+                toast.error("Error updating booking!");
+                throw new Error("Error update booking");
+
             }
+            toast.success("Booking updated!")
+            const data = await response.json();
+            console.log("Updated data: ", data);
+            onUpdate();
+
         }
 
 

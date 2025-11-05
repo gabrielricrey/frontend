@@ -7,7 +7,7 @@ type BookingPageProps = {
 }
 
 const BookingPage = async ({ params }: BookingPageProps) => {
-    const id = params.id;
+    const { id } = await params;
 
 
     return (

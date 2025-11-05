@@ -13,7 +13,7 @@ type BookingFormProps = {
     checkOutDate?: string;
     propertyUserId?: string;
     pricePerNight: number;
-    onUpdate: () => void;
+    onUpdate?: () => void;
 }
 
 const BookingForm = ({ propertyId, propertyUserId, pricePerNight, bookingId, checkInDate: checkIn, checkOutDate: checkOut, onUpdate }: BookingFormProps) => {
@@ -66,7 +66,7 @@ const BookingForm = ({ propertyId, propertyUserId, pricePerNight, bookingId, che
             toast.success("Booking updated!")
             const data = await response.json();
             console.log("Updated data: ", data);
-            onUpdate();
+            onUpdate!();
 
         }
 

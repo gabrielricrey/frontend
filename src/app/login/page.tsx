@@ -1,12 +1,9 @@
 import Login from "@/components/Login"
 
 
-const Page = () => {
+export default function LoginPage() {
     return (
-        <div className="w-full flex justify-center items-center h-screen">
-            <Login />
-        </div>
+        <Login />
     )
 }
 
-export default Page

@@ -11,9 +11,7 @@ const BookingPage = async ({ params }: BookingPageProps) => {
 
 
     return (
-        <div className="flex justify-center">
-            <Booking id={id} />
-        </div>
+        <Booking id={id} />
     )
 }
 

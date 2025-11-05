@@ -8,13 +8,13 @@ type CancelBookingModalProps = {
 
 export default function CancelBookingModal({ handleClick, closeModal }: CancelBookingModalProps) {
     return (
-        <div className="">
+        <div className="text-center">
             <p>Are you sure you want to cancel booking?</p>
-            <div>
-                <button onClick={handleClick}>
+            <div className="flex gap-2 justify-center">
+                <button className="border border-green-500 rounded-md px-2 py-1" onClick={handleClick}>
                     Yes
                 </button>
-                <button onClick={() => closeModal(false)}>
+                <button className="border rounded-md px-2 py-1" onClick={() => closeModal(false)}>
                     No
                 </button>
             </div>

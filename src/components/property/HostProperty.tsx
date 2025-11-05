@@ -74,8 +74,8 @@ export default function HostProperty({ id }: HostPropertyProps) {
                             <p>
                                 {property.description}
                             </p>
-                            <p>
-                                Price per night: {property.price_per_night}
+                            <p className="mt-2 text-sm">
+                                Price per night: $ {property.price_per_night}
                             </p>
                             <p className="absolute top-4 right-2">
                                 {property.is_available ?

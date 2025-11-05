@@ -50,7 +50,7 @@ export default function Bookings() {
                     </p>
                 )}
 
-                {!loading && !error && bookings.length > 0 && (
+                {!loading && !error && bookings && bookings.length > 0 && (
                     <ul className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
                         {bookings.map((b) => (
                             <BookingCard booking={b} key={b.id} />

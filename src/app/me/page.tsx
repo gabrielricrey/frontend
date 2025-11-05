@@ -4,10 +4,9 @@ import Profile from '@/components/profile/Profile'
 
 const Profilepage = () => {
     return (
-        <div>
-            <Profile />
-            <Logout />
-        </div>
+
+        <Profile />
+
     )
 }
 

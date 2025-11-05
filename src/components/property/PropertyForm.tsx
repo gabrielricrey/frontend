@@ -104,33 +104,40 @@ const PropertyForm = ({ id }: PropertyFormProps) => {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-16 md:mt-20 p-6 bg-white rounded-xl shadow-md">
-            <form onSubmit={onSubmit} className="flex flex-col gap-4">
-                <label className="flex flex-col">
-                    <span className="font-medium mb-1">Name</span>
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+            <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                <h2 className="text-2xl font-semibold text-center text-gray-900 mb-6">
+                    Create Property
+                </h2>
+                <form onSubmit={onSubmit} className="flex flex-col gap-4">
+
+
                     <input
                         id="name"
                         type="text"
                         value={propertyName}
                         onChange={(e) => setPropertyName(e.target.value)}
-                        className="border rounded-md p-2"
+                        placeholder="Name"
+                        className={`p-3 rounded-lg border border-gray-300
+                                focus:outline-none focus:ring-2 focus:ring-blue-400`}
                         required
                     />
-                </label>
 
-                <label className="flex flex-col">
-                    <span className="font-medium mb-1">Description</span>
+
+
+
                     <textarea
                         id="description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="border rounded-md p-2"
+                        placeholder="Description"
+                        className={`p-3 rounded-lg border border-gray-300
+                                focus:outline-none focus:ring-2 focus:ring-blue-400`}
                         rows={3}
                     />
-                </label>
 
-                <label className="flex flex-col">
-                    <span className="font-medium mb-1">Cost per night</span>
+
+
                     <input
                         id="cost"
                         type="number"
@@ -138,55 +145,57 @@ const PropertyForm = ({ id }: PropertyFormProps) => {
                         onChange={(e) =>
                             setCostPerNight(e.target.value ? Number(e.target.value) : "")
                         }
-                        className="border rounded-md p-2"
+                        placeholder="Cost Per Night"
+                        className={`p-3 rounded-lg border border-gray-300
+                                focus:outline-none focus:ring-2 focus:ring-blue-400`}
                         required
                     />
-                </label>
 
-                <fieldset className="flex flex-col">
-                    <legend className="font-medium mb-1">Availability</legend>
-                    <div className="flex gap-4">
-                        <label className="flex items-center gap-1">
-                            <input
-                                type="radio"
-                                name="availability"
-                                checked={isAvailable}
-                                onChange={() => setIsAvailable(true)}
-                            />
-                            Available
-                        </label>
-                        <label className="flex items-center gap-1">
-                            <input
-                                type="radio"
-                                name="availability"
-                                checked={!isAvailable}
-                                onChange={() => setIsAvailable(false)}
-                            />
-                            Unavailable
-                        </label>
-                    </div>
-                </fieldset>
 
-                <label className="flex flex-col">
-                    <span className="font-medium mb-1">Image URL</span>
+                    <fieldset className="">
+                        <div className="flex gap-4">
+                            <label className="flex items-center gap-1">
+                                <input
+                                    type="radio"
+                                    name="availability"
+                                    checked={isAvailable}
+                                    onChange={() => setIsAvailable(true)}
+                                />
+                                Available
+                            </label>
+                            <label className="flex items-center gap-1">
+                                <input
+                                    type="radio"
+                                    name="availability"
+                                    checked={!isAvailable}
+
+                                    onChange={() => setIsAvailable(false)}
+                                />
+                                Unavailable
+                            </label>
+                        </div>
+                    </fieldset>
+
+
                     <input
                         id="imageUrl"
                         type="url"
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)}
-                        className="border rounded-md p-2"
+                        placeholder="Image URL"
+                        className={`p-3 rounded-lg border border-gray-300
+                                focus:outline-none focus:ring-2 focus:ring-blue-400`}
                     />
-                </label>
-
-                <button
-                    type="submit"
-                    className="mt-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md p-2"
-                >
-                    <span>
-                        {isUpdate ? "Save Changes" : "Create Property"}
-                    </span>
-                </button>
-            </form>
+                    <button
+                        type="submit"
+                        className="w-full py-3 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition"
+                    >
+                        <span>
+                            {isUpdate ? "Save Changes" : "Create Property"}
+                        </span>
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };

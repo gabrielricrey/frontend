@@ -34,60 +34,63 @@ export default function ProfileDetailsForm() {
     }
 
     return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+            <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                <h2 className="text-2xl font-semibold text-center text-gray-900 mb-6">
+                    Profile details
+                </h2>
+                <form
+                    onSubmit={onSubmit}
+                    className="flex flex-col gap-4"
+                >
 
-        <form
-            onSubmit={onSubmit}
-            className="w-full max-w-md bg-white shadow-md rounded-2xl p-6 flex flex-col gap-6"
-        >
-            <div className="flex flex-col">
-                <label htmlFor="first_name" className="mb-1 font-medium">
-                    First name
-                </label>
-                <input
-                    id="first_name"
-                    name="first_name"
-                    type="text"
-                    value={form.first_name}
-                    onChange={handleChange}
-                    className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
+                    <input
+                        id="first_name"
+                        name="first_name"
+                        type="text"
+                        value={form.first_name}
+                        onChange={handleChange}
+                        placeholder="First Name"
+                        className={`p-3 rounded-lg border border-gray-300
+                                focus:outline-none focus:ring-2 focus:ring-blue-400`}
+                    />
+
+
+
+                    <input
+                        id="last_name"
+                        name="last_name"
+                        type="text"
+                        value={form.last_name}
+                        onChange={handleChange}
+                        placeholder="Last Name"
+                        className={`p-3 rounded-lg border border-gray-300
+                                focus:outline-none focus:ring-2 focus:ring-blue-400`}
+                    />
+
+
+
+                    <input
+                        id="avatar_url"
+                        name="avatar_url"
+                        type="text"
+                        value={form.avatar_url}
+                        onChange={handleChange}
+                        placeholder="Avatar URL"
+                        className={`p-3 rounded-lg border border-gray-300
+                                focus:outline-none focus:ring-2 focus:ring-blue-400`}
+                    />
+
+
+                    <button
+                        type="submit"
+                        className="w-full py-3 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition"
+                    >
+                        Update
+                    </button>
+                </form>
             </div>
-
-            <div className="flex flex-col">
-                <label htmlFor="last_name" className="mb-1 font-medium">
-                    Last name
-                </label>
-                <input
-                    id="last_name"
-                    name="last_name"
-                    type="text"
-                    value={form.last_name}
-                    onChange={handleChange}
-                    className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
-            </div>
-
-            <div className="flex flex-col">
-                <label htmlFor="avatar_url" className="mb-1 font-medium">
-                    Image URL
-                </label>
-                <input
-                    id="avatar_url"
-                    name="avatar_url"
-                    type="text"
-                    value={form.avatar_url}
-                    onChange={handleChange}
-                    className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
-            </div>
-
-            <button
-                type="submit"
-                className="mt-2 bg-blue-500 text-white font-medium py-2 rounded-lg hover:bg-blue-600 transition"
-            >
-                Update
-            </button>
-        </form>
+        </div>
 
     )
 }

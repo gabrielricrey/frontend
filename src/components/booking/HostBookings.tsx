@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from "react";
 import HostBookingCard from "./HostBookingCard";
 import HostBookingService from "@/utils/hostBookingService";
 import Loading from "../Loading";
+import SectionTitle from "../SectionTitle";
 
 export default function HostBookings() {
     const [bookings, setHostBookings] = useState<BookingWithUserAndProperty[] | []>([]);
@@ -45,10 +46,8 @@ export default function HostBookings() {
 
     return (
         <div className="min-h-screen flex items-start justify-center bg-gray-50 px-4">
-            <div className="w-full max-w-4xl mt-16 md:mt-20 bg-white rounded-2xl shadow-sm border border-gray-200 relative">
-                <h2 className="text-2xl mt-4 font-semibold text-center text-gray-900 mb-6">
-                    Your bookings
-                </h2>
+            <div className="w-full max-w-4xl mt-16 md:mt-20 bg-white rounded-2xl shadow-sm border border-gray-200 relative p-4">
+                <SectionTitle title={"Your Bookings"} />
                 {error &&
                     <p className="text-red-500">{error}</p>
                 }

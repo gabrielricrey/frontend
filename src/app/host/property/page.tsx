@@ -14,7 +14,7 @@ export default async function PropertiesPage() {
     }
     return (
         <div className="min-h-screen flex items-start justify-center bg-gray-50 px-4">
-            <div className="w-full max-w-4xl mt-16 md:mt-20 bg-white p-8 rounded-2xl shadow-sm border border-gray-200 relative">
+            <div className="w-full max-w-4xl mt-16 md:mt-20 bg-white p-4 rounded-2xl shadow-sm border border-gray-200 relative">
                 <Link
                     href={'/host/property/create'}
                     className="p-2 inline-flex border absolute right-5 top-5 rounded-lg text-white bg-blue-500 items-center gap-2"

@@ -90,6 +90,7 @@ export function UserProvider({ children }: PropsWithChildren<{}>) {
         await new AuthService().logout();
         setUser(null);
         hostMode.actions.turnOffHostMode();
+        router.push('/');
     }
 
     return (

@@ -1,31 +1,42 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import HostBookingCard from "./HostBookingCard";
 import HostBookingService from "@/utils/hostBookingService";
+import Loading from "../Loading";
 
 export default function HostBookings() {
     const [bookings, setHostBookings] = useState<BookingWithUserAndProperty[] | []>([]);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    const hostBookingService = useMemo(() => new HostBookingService(), [])
 
     useEffect(() => {
-        const fetchBookings = async () => {
-            const response = await new HostBookingService().getBookings();
-            const data = await response.json();
-            console.log(data);
-            setHostBookings(data.hostBookings);
+        let isMounted = true;
+
+        (async () => {
+            try {
+                const response = await hostBookingService.getBookings();
+                const data = await response.json();
+                console.log(data);
+                setHostBookings(data.hostBookings);
+            } catch (err) {
+                if (isMounted) setError("Error loading your bookings");
+            } finally {
+                if (isMounted) setLoading(false);
+            }
+        })();
+
+        return () => {
+            isMounted = false;
         }
 
-        fetchBookings();
-    }, [])
+    }, [hostBookingService])
 
-
-    const updateBookings = (index: number, status: string) => {
+    const updateBookings = (index: number, status: Booking['status']) => {
 
         const updatedArray = [...bookings];
-        if (status === 'confirmed') {
-            updatedArray[index] = { ...updatedArray[index], status: 'confirmed' };
-        } else {
-            updatedArray.splice(index, 1)
-        }
+        updatedArray[index] = { ...updatedArray[index], status };
 
         setHostBookings(updatedArray);
     }
@@ -33,10 +44,23 @@ export default function HostBookings() {
 
 
     return (
-        <div className="mt-16 md:mt-20">
-            <ul>
-                {bookings && bookings.map((b, index) => <HostBookingCard booking={b} key={b.id} index={index} updateBookings={updateBookings} />)}
-            </ul>
+        <div className="min-h-screen flex items-start justify-center bg-gray-50 px-4">
+            <div className="w-full max-w-4xl mt-16 md:mt-20 bg-white rounded-2xl shadow-sm border border-gray-200 relative">
+                <h2 className="text-2xl mt-4 font-semibold text-center text-gray-900 mb-6">
+                    Your bookings
+                </h2>
+                {error &&
+                    <p className="text-red-500">{error}</p>
+                }
+                {loading &&
+                    <Loading />
+                }
+                {!error && !loading &&
+                    <ul>
+                        {bookings && bookings.map((b, index) => <HostBookingCard booking={b} key={b.id} index={index} updateBookings={updateBookings} />)}
+                    </ul>
+                }
+            </div>
         </div>
     )
 

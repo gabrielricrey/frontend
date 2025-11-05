@@ -57,60 +57,70 @@ export default function RegisterForm() {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen">
-            {validationErrors && (
-                <div className="mb-4 p-3 border border-red-300 rounded bg-red-50">
-                    {validationErrors.map((issue, i) => (
-                        <p className="text-red-700" key={i}>{issue.message}</p>
-                    ))}
-                </div>
-            )}
-            <form onSubmit={handleSubmit} className="w-full space-y-4 max-w-md shadow-md flex flex-col items-center p-2 rounded-md">
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+            <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                <h2 className="text-2xl font-semibold text-center text-gray-900 mb-6">
+                    Register
+                </h2>
+
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 
 
-                <div className="w-full">
-                    <label htmlFor="email" className="block">Email *</label>
+
                     <input
                         id="email"
                         name="email"
                         type="text"
                         value={form.email}
                         onChange={handleChange}
+                        placeholder="Email"
                         required
-                        className="border p-2 rounded w-full"
+                        className={`p-3 rounded-lg border border-gray-300
+                                focus:outline-none focus:ring-2 focus:ring-blue-400`}
                     />
-                </div>
 
-                <div className="w-full">
-                    <label htmlFor="password" className="block">Password *</label>
+
+
                     <input
                         id="password"
                         name="password"
                         type="password"
                         value={form.password}
                         onChange={handleChange}
+                        placeholder="Password"
                         required
-                        className="border p-2 rounded w-full"
+                        className={`p-3 rounded-lg border border-gray-300
+                                focus:outline-none focus:ring-2 focus:ring-blue-400`}
                     />
-                </div>
 
-                <div className="w-full">
-                    <label htmlFor="confirm_password" className="block">Confirm Password *</label>
+
+
                     <input
                         id="confirm_password"
                         name="confirm_password"
                         type="password"
                         value={form.confirm_password}
                         onChange={handleChange}
+                        placeholder="Confirm Password"
                         required
-                        className="border p-2 rounded w-full"
+                        className={`p-3 rounded-lg border border-gray-300
+                                focus:outline-none focus:ring-2 focus:ring-blue-400`}
                     />
-                </div>
 
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer">
-                    Register
-                </button>
-            </form>
+                    {validationErrors && (
+                        <div className="mb-4 p-3 border border-red-300 rounded bg-red-50 text-center">
+                            {validationErrors.map((issue, i) => (
+                                <p className="text-red-700" key={i}>{issue.message}</p>
+                            ))}
+                        </div>
+                    )}
+
+
+                    <button type="submit" className="w-full py-3 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition">
+                        Register
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

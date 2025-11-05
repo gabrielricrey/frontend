@@ -41,51 +41,55 @@ export default function HostProperty({ id }: HostPropertyProps) {
         <>
             {property &&
 
-                <div className="w-full mt-16 md:mt-20 md:w-4/5 flex flex-col rounded-md p-2">
-                    <div className="relative">
-                        <Image
-                            src={property.image_url}
-                            alt={property.name}
-                            width={400}
-                            height={400}
-                            className="w-full rounded-md flex-1 h-64 md:h-80 object-cover"
-                        />
-                        <div className="flex gap-4 bg-white absolute top-2 right-2 p-2 rounded-md">
-                            <button className="flex gap-1" onClick={handleEditClick}>
-                                <PencilIcon className="size-5 text-gray-700" />
-                                <span className="hidden md:block">
-                                    Edit
-                                </span>
-                            </button>
-                            <button className="flex gap-1" onClick={handleDeleteClick}>
-                                <TrashIcon className="size-5 text-gray-700" />
-                                <span className="hidden md:block">
-                                    Delete
-                                </span>
-                            </button>
+                <div className="min-h-screen flex items-start justify-center bg-gray-50 px-4">
+                    <div className="w-full max-w-4xl mt-16 md:mt-20 bg-white rounded-2xl shadow-sm border border-gray-200 relative">
+
+                        <div className="relative">
+                            <Image
+                                src={property.image_url}
+                                alt={property.name}
+                                width={400}
+                                height={400}
+                                className="w-full rounded-md flex-1 h-64 md:h-80 object-cover"
+                            />
+                            <div className="flex gap-4 bg-white absolute top-2 right-2 p-2 rounded-md">
+                                <button className="flex gap-1" onClick={handleEditClick}>
+                                    <PencilIcon className="size-5 text-gray-700" />
+                                    <span className="hidden md:block">
+                                        Edit
+                                    </span>
+                                </button>
+                                <button className="flex gap-1" onClick={handleDeleteClick}>
+                                    <TrashIcon className="size-5 text-gray-700" />
+                                    <span className="hidden md:block">
+                                        Delete
+                                    </span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div className="text-center flex-1 relative">
-                        <h3 className="text-xl font-bold my-3 p-2">
-                            {property?.name}
-                        </h3>
-                        <p>
-                            {property.description}
-                        </p>
-                        <p>
-                            Price per night: {property.price_per_night}
-                        </p>
-                        <p className="absolute top-4 right-2">
-                            {property.is_available ?
-                                <span className="bg-green-200 rounded-md text-green-600 p-2"> Available</span> :
-                                <span className="bg-red-200 rounded-md text-red-600 p-2"> Not Available</span>}
-                        </p>
+                        <div className="text-left flex-1 relative p-4">
+                            <h3 className="text-xl font-bold my-3">
+                                {property?.name}
+                            </h3>
+                            <p>
+                                {property.description}
+                            </p>
+                            <p>
+                                Price per night: {property.price_per_night}
+                            </p>
+                            <p className="absolute top-4 right-2">
+                                {property.is_available ?
+                                    <span className="bg-green-200 rounded-md text-green-600 p-2"> Available</span> :
+                                    <span className="bg-red-200 rounded-md text-red-600 p-2"> Not Available</span>}
+                            </p>
+
+                        </div>
+                        {
+                            showDeleteModal &&
+                            <DeletePropertyModal setShowDeleteModal={setShowDeleteModal} id={property.id} />
+                        }
 
                     </div>
-                    {
-                        showDeleteModal &&
-                        <DeletePropertyModal setShowDeleteModal={setShowDeleteModal} id={property.id} />
-                    }
                 </div>
             }
         </>

@@ -8,7 +8,7 @@ type PropertPageProps = {
 }
 
 const PropertyPage = async ({ params }: PropertPageProps) => {
-    const id = await params.id;
+    const { id } = await params;
     const response = await new PropertyService().getProperty(id);
 
     if (response.status === 404) {

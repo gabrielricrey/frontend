@@ -17,15 +17,10 @@ export default function HostBookings() {
         fetchBookings();
     }, [])
 
-
-    const updateBookings = (index: number, status: string) => {
+    const updateBookings = (index: number, status: Booking['status']) => {
 
         const updatedArray = [...bookings];
-        if (status === 'confirmed') {
-            updatedArray[index] = { ...updatedArray[index], status: 'confirmed' };
-        } else {
-            updatedArray.splice(index, 1)
-        }
+        updatedArray[index] = { ...updatedArray[index], status };
 
         setHostBookings(updatedArray);
     }

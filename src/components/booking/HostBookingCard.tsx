@@ -1,8 +1,8 @@
 "use client";
-import Link from 'next/link';
+
 import { CheckIcon, XMarkIcon } from '@heroicons/react/16/solid';
 import HostBookingService from '@/utils/hostBookingService';
-
+import clsx from 'clsx';
 
 interface HostBookingCardProps {
     booking: {
@@ -17,11 +17,11 @@ interface HostBookingCardProps {
         check_in_date: string;
         check_out_date: string;
         total_cost: number;
-        status: string;
+        status: Booking['status'];
         created_at: string;
         updated_at: string;
     },
-    updateBookings: (index: number, status: string) => void,
+    updateBookings: (index: number, status: Booking['status']) => void,
     index: number,
 
 }
@@ -30,7 +30,6 @@ const HostBookingCard = ({ booking, updateBookings, index }: HostBookingCardProp
 
     const handleClick = async (action: "accept" | "reject") => {
         const status = action === 'accept' ? 'confirmed' : 'rejected';
-        console.log(status);
         try {
             const response = await new HostBookingService().updateBooking(booking.id, status);
             if (!response.ok) {
@@ -66,12 +65,13 @@ const HostBookingCard = ({ booking, updateBookings, index }: HostBookingCardProp
                     </p>
                     <p className="text-gray-800 font-semibold mt-2">Total: ${booking.total_cost}</p>
                     <span
-                        className={`inline-block mt-3 px-3 py-1 rounded-full text-sm font-medium ${booking.status === "pending"
-                            ? "bg-yellow-100 text-yellow-800"
-                            : booking.status === "confirmed"
-                                ? "bg-green-100 text-green-800"
-                                : "bg-gray-100 text-gray-800"
-                            }`}
+                        className={clsx("inline-block mt-3 px-3 py-1 rounded-full text-sm font-medium",
+                            booking.status === "pending"
+                                ? "bg-yellow-100 text-yellow-800"
+                                : booking.status === "confirmed"
+                                    ? "bg-green-100 text-green-800"
+                                    : "bg-red-100 text-red-800"
+                        )}
                     >
                         {booking.status.toUpperCase()}
                     </span>

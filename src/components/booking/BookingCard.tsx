@@ -15,6 +15,7 @@ const BookingCard = ({ booking }: BookingCardProp) => {
         pending: "text-yellow-500",
         confirmed: "text-green-500",
         cancelled: "text-red-500",
+        rejected: "text-red-500",
     }[status.toLowerCase()] || "text-gray-500";
 
     return (

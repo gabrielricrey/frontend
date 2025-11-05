@@ -3,6 +3,7 @@ import PropertyCard from "./PropertyCard";
 import PropertyService from "@/utils/propertyService";
 import { useEffect, useState, useMemo } from "react";
 import { useUser } from "@/context/UserContext";
+import Loading from "../Loading";
 
 export default function Properties() {
 
@@ -49,9 +50,7 @@ export default function Properties() {
             </h2>
 
             {loading &&
-                <div className="flex justify-center items-center h-64">
-                    <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
-                </div>
+                <Loading />
             }
 
             {error && <p className="text-red-500">{error}</p>}

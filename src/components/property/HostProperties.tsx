@@ -3,6 +3,7 @@
 import HostPropertyCard from "./HostPropertyCard";
 import { useState, useEffect, useMemo } from "react";
 import HostPropertyService from "@/utils/hostPropertyService";
+import Loading from "../Loading";
 
 export default function HostProperties() {
     const [properties, setProperties] = useState<PropertyPreview[] | []>([]);
@@ -39,9 +40,7 @@ export default function HostProperties() {
             </h2>
 
             {loading &&
-                <div className="flex justify-center items-center h-64">
-                    <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
-                </div>
+                <Loading />
             }
 
             {error && <p className="text-red-500">{error}</p>}

@@ -62,33 +62,33 @@ const BookingForm = ({ propertyId, propertyUserId, pricePerNight, bookingId, che
         <div>
             {user?.user ? (
                 user?.user.id !== propertyUserId ?
-                    <form onSubmit={onSubmit}>
-                        <label>
+                    <form onSubmit={onSubmit} className="flex flex-col items-center">
+                        <label className="text-sm">
                             Check-in
-                            <input
-                                type="date"
-                                value={checkInDate}
-                                min={new Date().toISOString().split("T")[0]}
-                                onChange={(e) => setCheckInDate(e.target.value)}
-                                className="border p-2 rounded w-full"
-                            />
                         </label>
-                        <label>
+                        <input
+                            type="date"
+                            value={checkInDate}
+                            min={new Date().toISOString().split("T")[0]}
+                            onChange={(e) => setCheckInDate(e.target.value)}
+                            className="border p-2 rounded w-full bg-white"
+                        />
+                        <label className="text-sm">
                             Check-out
-                            <input
-                                type="date"
-                                value={checkOutDate}
-                                min={checkInDate ? addDays(new Date(checkInDate), 1).toISOString().split("T")[0] : new Date().toISOString().split("T")[0]}
-                                onChange={(e) =>
-                                    setCheckOutDate(e.target.value)
-                                }
-                                className="border p-2 rounded w-full"
-                            />
                         </label>
+                        <input
+                            type="date"
+                            value={checkOutDate}
+                            min={checkInDate ? addDays(new Date(checkInDate), 1).toISOString().split("T")[0] : new Date().toISOString().split("T")[0]}
+                            onChange={(e) =>
+                                setCheckOutDate(e.target.value)
+                            }
+                            className="border p-2 rounded w-full bg-white"
+                        />
 
-                        <p >Total cost: {totalCost > 0 && <span>{totalCost} $</span>}</p>
+                        <p className="w-full my-2"> {totalCost > 0 && <span className="font-medium text-xl">$ {totalCost}</span>}</p>
 
-                        <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">{bookingId ? "Update" : "Book"}</button>
+                        <button className="bg-blue-500 text-white p-2 rounded-xl w-full" type="submit">{bookingId ? "Update" : "Book"}</button>
                     </form> : <p>your own property</p>) :
 
                 !user?.user &&

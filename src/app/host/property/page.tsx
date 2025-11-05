@@ -4,13 +4,13 @@ import Link from "next/link";
 
 export default async function PropertiesPage() {
     return (
-        <div>
+        <div className="mt-16 md:mt-20 relative">
             <Link
                 href={'/host/property/create'}
-                className="flex p-2 border"
+                className=" p-2 inline-flex border absolute right-5 top-5 rounded-md items-center "
             >
-                <PlusIcon className="size-6" />
-                <span>Create</span>
+                <PlusIcon className="size-5 text-gray-700" />
+                <span>Create Property</span>
             </Link>
             <HostProperties />
         </div>

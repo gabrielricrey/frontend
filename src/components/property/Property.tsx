@@ -21,7 +21,7 @@ const Property = ({ property }: PropertyProp) => {
                 />
 
                 <div className="p-6 md:p-10 flex flex-col lg:flex-row gap-8">
-                    <div className="flex-1">
+                    <div className="flex-2">
                         <h1 className="text-3xl font-semibold text-gray-900 mb-3">{name}</h1>
                         <p className="text-gray-600 leading-relaxed mb-6">{description}</p>
                         <div className="text-2xl font-bold text-gray-800">
@@ -30,7 +30,7 @@ const Property = ({ property }: PropertyProp) => {
                         </div>
                     </div>
 
-                    <div className="flex-1 lg:max-w-md border rounded-2xl shadow-md p-6 bg-gray-50">
+                    <div className="flex-1 lg:max-w-md rounded-2xl shadow-lg p-6 bg-gray-50">
                         <BookingForm propertyId={id} propertyUserId={user_id} pricePerNight={price_per_night} />
                     </div>
                 </div>

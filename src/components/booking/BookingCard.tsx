@@ -19,7 +19,7 @@ const BookingCard = ({ booking }: BookingCardProp) => {
 
     return (
         <Link href={`/booking/${id}`}>
-            <li className={clsx("bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition cursor-pointer flex flex-col md:flex-row border border-gray-200", status !== 'confirmed' ? "opacity-60" : "")}>
+            <li className={clsx("bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition cursor-pointer flex flex-col md:flex-row border border-gray-200", status === 'cancelled' ? "opacity-60" : "")}>
                 <div className="relative w-full md:w-48 h-48 md:h-auto">
                     <Image
                         src={properties.image_url}

@@ -1,18 +1,21 @@
+import { Dispatch, SetStateAction } from "react"
+
 type CancelBookingModalProps = {
-    handleClick: () => void
+    handleClick: () => void,
+    closeModal: Dispatch<SetStateAction<boolean>>
 }
 
 
-export default function CancelBookingModal({ handleClick }: CancelBookingModalProps) {
+export default function CancelBookingModal({ handleClick, closeModal }: CancelBookingModalProps) {
     return (
         <div className="">
-            <p>Are you sure you want to delete?</p>
+            <p>Are you sure you want to cancel booking?</p>
             <div>
                 <button onClick={handleClick}>
-                    Delete
+                    Yes
                 </button>
-                <button>
-                    Cancel
+                <button onClick={() => closeModal(false)}>
+                    No
                 </button>
             </div>
         </div>

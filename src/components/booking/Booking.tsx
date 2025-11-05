@@ -51,7 +51,7 @@ export default function Booking({ id }: BookingProp) {
             {booking &&
                 <div className="min-h-screen flex items-start justify-center bg-gray-50 px-4">
                     <div className="w-full max-w-4xl mt-16 md:mt-20 bg-white rounded-2xl shadow-sm border border-gray-200 relative p-4">
-                        {booking.status !== 'cancelled' && booking.status !== 'rejected' &&
+                        {booking.status === 'pending' &&
 
                             <div className="flex gap-1 absolute right-2 top-2 text-gray-700 bg-white rounded-2xl p-2">
                                 <button onClick={() => setShowEditForm(prev => !prev)}>

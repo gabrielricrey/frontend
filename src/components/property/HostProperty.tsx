@@ -41,7 +41,7 @@ export default function HostProperty({ id }: HostPropertyProps) {
         <>
             {property &&
 
-                <div className="w-full mt-16 md:mt-20 md:w-4/5 flex flex-col rounded-md p-2">
+                <div className="w-full mt-16 md:mt-20 md:w-1/2 flex flex-col rounded-md p-2">
                     <div className="relative">
                         <Image
                             src={property.image_url}

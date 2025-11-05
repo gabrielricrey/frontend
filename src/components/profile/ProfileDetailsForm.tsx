@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useUser } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 import UserService from "@/utils/userService";
+import { toast } from "react-toastify";
 
 export default function ProfileDetailsForm() {
     const user = useUser();
@@ -25,6 +26,7 @@ export default function ProfileDetailsForm() {
             throw new Error("Error updating profile");
         }
 
+        toast.success("Success updating profile details");
         const data = await response.json();
         const updatedUserData: UserProfile = data.profile;
         user?.setUser(updatedUserData);

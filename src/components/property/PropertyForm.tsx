@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import HostPropertyService from "@/utils/hostPropertyService";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 type PropertyFormProps = {
     id?: String
@@ -88,6 +89,12 @@ const PropertyForm = ({ id }: PropertyFormProps) => {
             setCostPerNight("");
             setIsAvailable(false);
             setImageUrl("");
+
+            if (!isUpdate) {
+                toast.success("Sucess creating property!");
+            } else {
+                toast.success("Sucess updating property!");
+            };
 
             router.push(`/host/property/${data.property.id}`);
 

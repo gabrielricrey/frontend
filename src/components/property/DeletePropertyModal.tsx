@@ -1,25 +1,28 @@
 import { Dispatch, SetStateAction } from 'react';
 import HostPropertyService from '@/utils/hostPropertyService';
+import { toast } from "react-toastify";
+import { useRouter } from 'next/navigation';
+
 type DeletePropertyModalProps = {
     setShowDeleteModal: Dispatch<SetStateAction<boolean>>,
     id: string,
 }
 
 export default function DeletePropertyModal({ setShowDeleteModal, id }: DeletePropertyModalProps) {
+    const router = useRouter();
 
     const deleteProperty = async (id: string) => {
-        try {
-            const response = await new HostPropertyService().deleteProperty(id);
 
-            if (!response.ok) {
-                throw new Error("Error deleting property");
-            }
-            console.log("Success deleting property");
+        const response = await new HostPropertyService().deleteProperty(id);
+
+        if (!response.ok) {
             setShowDeleteModal(prev => !prev);
-        } catch (error) {
-            console.error("Error:", error);
-            setShowDeleteModal(prev => !prev);
+            throw new Error("Error deleting property");
         }
+        console.log("Success deleting property");
+        toast.success("Success deleting property");
+        setShowDeleteModal(prev => !prev);
+        router.push('/host/property');
 
     }
 

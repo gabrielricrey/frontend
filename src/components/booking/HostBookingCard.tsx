@@ -29,7 +29,7 @@ interface HostBookingCardProps {
 const HostBookingCard = ({ booking, updateBookings, index }: HostBookingCardProps) => {
 
     const handleClick = async (action: "accept" | "reject") => {
-        const status = action === 'accept' ? 'confirmed' : 'cancelled';
+        const status = action === 'accept' ? 'confirmed' : 'rejected';
         console.log(status);
         try {
             const response = await new HostBookingService().updateBooking(booking.id, status);

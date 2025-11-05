@@ -1,6 +1,5 @@
 import Hero from "@/components/Hero";
 import Properties from "@/components/property/Properties";
-import PropertyService from "@/utils/propertyService";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 

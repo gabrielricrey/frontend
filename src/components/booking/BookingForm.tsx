@@ -106,7 +106,9 @@ const BookingForm = ({ propertyId, propertyUserId, pricePerNight, bookingId, che
                     </form> : <p>your own property</p>) :
 
                 !user?.user &&
-                <p>Sign in to be able to book!</p>
+                <div className="flex justify-center items-center">
+                    <p>Sign in to be able to book!</p>
+                </div>
 
             }
 

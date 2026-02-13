@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useUser } from "@/context/UserContext";
 import Link from "next/link";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function LoginForm() {
     const user = useUser();
@@ -12,6 +13,18 @@ export default function LoginForm() {
         e.preventDefault();
         user?.actions.login(email, password);
     };
+
+    const handleChange = (setter: React.Dispatch<React.SetStateAction<string>>) => (e: React.ChangeEvent<HTMLInputElement>) => {
+        setter(e.target.value)
+        user?.setFailedLogin(false);
+    }
+
+    // const handleChange =
+    //     (setter: React.Dispatch<React.SetStateAction<string>>) =>
+    //         (e: React.ChangeEvent<HTMLInputElement>) => {
+    //             setter(e.target.value);
+    //             user?.setFailedLogin(false);
+    //         };
 
     return (
 
@@ -25,20 +38,18 @@ export default function LoginForm() {
                     <input
                         type="email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleChange(setEmail)}
                         placeholder="Email"
-                        className={`p-3 rounded-lg border ${user?.failedLogin ? "border-red-400" : "border-gray-300"
-                            } focus:outline-none focus:ring-2 focus:ring-blue-400`}
+                        className={`p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400`}
                         required
                     />
 
                     <input
                         type="password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={handleChange(setPassword)}
                         placeholder="********"
-                        className={`p-3 rounded-lg border ${user?.failedLogin ? "border-red-400" : "border-gray-300"
-                            } focus:outline-none focus:ring-2 focus:ring-blue-400`}
+                        className={`p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400`}
                         required
                     />
 
@@ -46,7 +57,7 @@ export default function LoginForm() {
                         type="submit"
                         className="w-full py-3 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition"
                     >
-                        Login
+                        {user?.loading ? <LoadingSpinner /> : "Login"}
                     </button>
                 </form>
 

@@ -4,22 +4,27 @@ import AuthService from "@/utils/authService";
 import { newUserProfileSchema } from "@/utils/validation/registerUserValidator";
 import z from "zod";
 import { useRouter } from "next/navigation";
+import LoadingSpinner from "../LoadingSpinner";
 
 export default function RegisterForm() {
+    
     const [form, setForm] = useState<NewUserProfile>({
         email: "",
         password: "",
         confirm_password: "",
     });
     const [validationErrors, setValidationErrors] = useState<z.core.$ZodIssue[] | [{ message: string }] | null>(null);
+    const [isLoading,setIsLoading] = useState<boolean>(false);
 
     const router = useRouter();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValidationErrors(null);
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
+        setIsLoading(true);
         e.preventDefault();
         let response;
         try {
@@ -27,17 +32,21 @@ export default function RegisterForm() {
             newUserProfileSchema.parse(form);
             const { email, password } = form;
             response = await new AuthService().register({ email, password });
+            setIsLoading(false);
         } catch (err) {
             if (err instanceof z.ZodError) {
                 console.log("Validation errors:", err.issues);
                 setValidationErrors(err.issues);
+                setIsLoading(false);
                 return;
             }
+            setIsLoading(false);
             return;
         }
 
         if (response.status === 409) {
             setValidationErrors([{ message: "Email already in use" }])
+            setIsLoading(false);
             return;
         }
 
@@ -50,9 +59,10 @@ export default function RegisterForm() {
 
         if (!response.ok) {
             const error = data?.error;
+            setIsLoading(false);
             throw new Error(error || "Error register user.");
         }
-        console.log(data);
+        setIsLoading(false);
         router.push('/login');
     };
 
@@ -64,9 +74,6 @@ export default function RegisterForm() {
                 </h2>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-
-
-
                     <input
                         id="email"
                         name="email"
@@ -78,9 +85,6 @@ export default function RegisterForm() {
                         className={`p-3 rounded-lg border border-gray-300
                                 focus:outline-none focus:ring-2 focus:ring-blue-400`}
                     />
-
-
-
                     <input
                         id="password"
                         name="password"
@@ -92,9 +96,6 @@ export default function RegisterForm() {
                         className={`p-3 rounded-lg border border-gray-300
                                 focus:outline-none focus:ring-2 focus:ring-blue-400`}
                     />
-
-
-
                     <input
                         id="confirm_password"
                         name="confirm_password"
@@ -108,16 +109,16 @@ export default function RegisterForm() {
                     />
 
                     {validationErrors && (
-                        <div className="mb-4 p-3 border border-red-300 rounded bg-red-50 text-center">
+                        <div className="text-center">
                             {validationErrors.map((issue, i) => (
-                                <p className="text-red-700" key={i}>{issue.message}</p>
+                                <p className="text-sm text-red-500" key={i}>{issue.message}</p>
                             ))}
                         </div>
                     )}
 
 
                     <button type="submit" className="w-full py-3 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition">
-                        Register
+                        {isLoading ? <LoadingSpinner/> : "Register"}
                     </button>
                 </form>
             </div>

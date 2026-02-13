@@ -16,6 +16,7 @@ type AuthActions = {
 type UserState = {
     user: UserProfile | null,
     setUser: React.Dispatch<React.SetStateAction<UserProfile | null>>
+    setFailedLogin: React.Dispatch<React.SetStateAction<boolean>>
     loading: boolean,
     failedLogin: boolean,
     actions: AuthActions
@@ -46,8 +47,6 @@ export function UserProvider({ children }: PropsWithChildren<{}>) {
         } finally {
             setLoading(false);
         }
-
-
     }
 
     useEffect(() => {
@@ -55,22 +54,27 @@ export function UserProvider({ children }: PropsWithChildren<{}>) {
     }, [])
 
     async function login(email: string, password: string) {
+        setLoading(true);
         try {
             const response = await new AuthService().login(email, password);
             if (response.status === 400) {
                 setFailedLogin(true);
+                setLoading(false);
                 return;
             }
             if (!response.ok) {
                 setFailedLogin(true);
+                setLoading(false);
                 throw new Error("Login failed");
             }
 
             setFailedLogin(false);
+            setLoading(false);
             router.push('/');
             await fetchUserProfile();
 
         } catch (error) {
+            setLoading(false);
             console.error("Error login in: ", error);
         }
     }
@@ -94,7 +98,7 @@ export function UserProvider({ children }: PropsWithChildren<{}>) {
     }
 
     return (
-        <UserContext.Provider value={{ user, setUser, loading, failedLogin, actions: { login, register, logout } }}>
+        <UserContext.Provider value={{ user, setUser, loading, failedLogin, setFailedLogin, actions: { login, register, logout } }}>
             {children}
         </UserContext.Provider>
     )

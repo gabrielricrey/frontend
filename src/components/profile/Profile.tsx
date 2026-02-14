@@ -7,7 +7,7 @@ export default function Profile() {
     const user = useUser();
 
     return (
-        <div className="min-h-screen flex items-start justify-center bg-gray-50 px-4">
+        <div className="min-h-screen flex items-start justify-center bg-gray-50 px-4 pt-8">
             <div className="w-full max-w-4xl bg-white mt-16 md:mt-20 p-8 rounded-2xl shadow-sm border border-gray-200">
                 <div className="flex items-center justify-between mb-6">
                     <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-2xl font-bold">

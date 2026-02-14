@@ -1,0 +1,22 @@
+<svg width="220" height="80" viewBox="0 0 220 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon -->
+  <g transform="translate(10,10)">
+    <!-- Location pin -->
+    <path d="M30 0C18 0 8 10 8 22c0 15 22 38 22 38s22-23 22-38C52 10 42 0 30 0z"
+          fill="#2563EB"/>
+    
+    <!-- House -->
+    <path d="M20 26L30 18L40 26V36H34V30H26V36H20V26Z"
+          fill="white"/>
+  </g>
+
+  <!-- Text -->
+  <text x="85" y="50"
+        font-family="Inter, Arial, sans-serif"
+        font-size="42"
+        font-weight="600"
+        fill="#ffffff"
+        letter-spacing="-1">
+    stay
+  </text>
+</svg>

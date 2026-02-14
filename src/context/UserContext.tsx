@@ -5,6 +5,7 @@ import UserService from "@/utils/userService";
 import AuthService from "@/utils/authService";
 import { useRouter } from "next/navigation";
 import { useHostMode } from "./HostModeContext";
+import { toast } from "react-toastify";
 
 
 type AuthActions = {
@@ -70,6 +71,7 @@ export function UserProvider({ children }: PropsWithChildren<{}>) {
 
             setFailedLogin(false);
             setLoading(false);
+            toast.success("Login successful")
             router.push('/');
             await fetchUserProfile();
 

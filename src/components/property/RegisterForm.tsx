@@ -117,7 +117,7 @@ export default function RegisterForm() {
                     )}
 
 
-                    <button type="submit" className="w-full py-3 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition">
+                    <button type="submit" className="w-full py-3 rounded-lg bg-black text-white font-medium hover:bg-gray-900 hover:cursor-pointer transition">
                         {isLoading ? <LoadingSpinner/> : "Register"}
                     </button>
                 </form>

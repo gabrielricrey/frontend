@@ -55,7 +55,7 @@ export default function LoginForm() {
 
                     <button
                         type="submit"
-                        className="w-full py-3 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition"
+                        className="w-full py-3 rounded-lg bg-black text-white font-medium hover:cursor-pointer hover:bg-gray-900 transition"
                     >
                         {user?.loading ? <LoadingSpinner /> : "Login"}
                     </button>

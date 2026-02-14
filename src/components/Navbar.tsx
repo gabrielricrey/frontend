@@ -14,7 +14,7 @@ import BecomeHostLabel from "./BecomeHostLabel";
 import { useHostMode } from "@/context/HostModeContext";
 import { PropsWithChildren } from "react";
 import clsx from "clsx";
-import Logo from "./Logo";
+import LogoBlack from "./LogoBlack";
 
 const Navbar = ({ children }: PropsWithChildren) => {
     const pathname = usePathname();
@@ -26,7 +26,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
     return (
         <>
             <nav className={clsx("fixed top-0 left-0 w-full h-14 md:h-16 shadow-sm flex items-center justify-between px-6 md:px-10 z-50", hostMode.hostMode ? "bg-gray-400" : "bg-white")}>
-                <Logo hostMode={hostMode.hostMode} />
+                <LogoBlack />
                 <div className="flex items-center gap-4 text-sm font-medium text-gray-700">
                     {user?.user && hostMode?.hostMode && (
                         <>

@@ -1,8 +1,17 @@
-import LogoWhite from "./LogoWhite"
-import Copyright from "./Copyright"
+"use client";
+
+import { usePathname } from "next/navigation";
+import LogoWhite from "./LogoWhite";
+import Copyright from "./Copyright";
 
 export default function
     () {
+    const pathname = usePathname();
+
+    if (pathname !== "/") {
+        return null;
+    }
+
     return (
         <div className="hidden md:flex flex-col justify-center items-center gap-4 py-16 relative isolate">
             {/* Background gradient */}
@@ -13,5 +22,5 @@ export default function
             <LogoWhite />
             <Copyright />
         </div>
-    )
+    );
 }

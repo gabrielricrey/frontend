@@ -12,7 +12,8 @@ export default async function BecomeHost() {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex flex-col justify-center items-center h-screen gap-2">
+            <h2 className="text-2xl">Just click the button to become a Host!</h2>
             <BecomeHostButton />
         </div>
     )

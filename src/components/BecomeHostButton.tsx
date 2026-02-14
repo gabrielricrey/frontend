@@ -34,7 +34,7 @@ export default function BecomeHostButton() {
     }
     return (
 
-        <button onClick={handleClick} className="border cursor-pointer bg-blue-500 text-white rounded-md p-2">Become a host</button>
+        <button onClick={handleClick} className="border rounded-md p-2 text-white bg-gradient-to-br from-blue-600 via-indigo-600 to-slate-900 hover:cursor-pointer">Become a host</button>
 
     )
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import BottomNav from "@/components/BottomNav";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import "./globals.css";
 import { UserProvider } from "@/context/UserContext";
 import { HostModeProvider } from "@/context/HostModeContext";
@@ -48,6 +49,7 @@ export default function RootLayout({
               />
               {children}
             </Navbar>
+            <Footer/>
             <BottomNav />
           </UserProvider>
         </HostModeProvider>

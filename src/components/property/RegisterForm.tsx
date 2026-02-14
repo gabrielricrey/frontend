@@ -5,6 +5,8 @@ import { newUserProfileSchema } from "@/utils/validation/registerUserValidator";
 import z from "zod";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "../LoadingSpinner";
+import { toast } from "react-toastify";
+
 
 export default function RegisterForm() {
     
@@ -63,6 +65,7 @@ export default function RegisterForm() {
             throw new Error(error || "Error register user.");
         }
         setIsLoading(false);
+        toast.success("Successfully registered")
         router.push('/login');
     };
 

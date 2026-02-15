@@ -22,8 +22,8 @@ export default function LoginForm() {
 
     return (
 
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-            <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+        <div className="min-h-screen flex items-center justify-center px-4">
+            <div className="w-full max-w-md p-8 rounded-2xl  border-gray-200">
                 <h2 className="text-2xl font-semibold text-center text-gray-900 mb-6">
                     Welcome back
                 </h2>

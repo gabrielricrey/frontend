@@ -107,7 +107,7 @@ const PropertyForm = ({ id }: PropertyFormProps) => {
         <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
             <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
                 <h2 className="text-2xl font-semibold text-center text-gray-900 mb-6">
-                    Create Property
+                   {isUpdate ? "Update Property" : "Create Property"}
                 </h2>
                 <form onSubmit={onSubmit} className="flex flex-col gap-4">
 
@@ -188,7 +188,7 @@ const PropertyForm = ({ id }: PropertyFormProps) => {
                     />
                     <button
                         type="submit"
-                        className="w-full py-3 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition"
+                        className="w-full py-3 rounded-lg bg-black text-white font-medium hover:cursor-pointer transition"
                     >
                         <span>
                             {isUpdate ? "Save Changes" : "Create Property"}

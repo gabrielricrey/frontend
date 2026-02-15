@@ -45,8 +45,8 @@ export default function HostBookings() {
 
 
     return (
-        <div className="min-h-screen flex items-start justify-center bg-gray-50 px-4">
-            <div className="w-full max-w-4xl mt-16 md:mt-20 bg-white rounded-2xl shadow-sm border border-gray-200 relative p-4">
+        <div className="min-h-screen flex items-start justify-center bg-gray-50 px-4 py-8">
+            <div className="w-full max-w-4xl mt-16 md:mt-20 bg-white rounded-2xl shadow-sm border border-gray-200 relative p-8">
                 <SectionTitle title={"Your Bookings"} />
                 {error &&
                     <p className="text-red-500">{error}</p>

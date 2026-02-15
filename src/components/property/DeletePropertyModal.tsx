@@ -32,15 +32,14 @@ export default function DeletePropertyModal({ setShowDeleteModal, id }: DeletePr
     }
 
     return (
-        <div className='absolute w-full h-screen z-10 flex justify-center items-center bg-black opacity-55'>
-
-            <div className="w-full sm:w-3/4 md:1/2 rounded-md z-20 bg-white flex flex-col items-center ">
-                <p>Are you sure you want to delete?</p>
-                <div className='flex flex-col'>
-                    <button onClick={() => deleteProperty(id)}>
+        <div className='absolute w-full inset-0 z-10 flex justify-center items-center'>
+            <div className="w-full sm:w-3/4 md:1/2 rounded-md z-5 bg-white flex flex-col items-center p-8 ">
+                <p className='mb-2'>Are you sure you want to delete?</p>
+                <div className='flex gap-2'>
+                    <button className='border rounded-md p-2 hover:cursor-pointer ' onClick={() => deleteProperty(id)}>
                         Delete
                     </button>
-                    <button onClick={cancelDeleteProperty}>
+                    <button className='border rounded-md  p-2 hover:cursor-pointer ' onClick={cancelDeleteProperty}>
                         Cancel
                     </button>
                 </div>

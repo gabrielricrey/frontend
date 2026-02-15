@@ -49,8 +49,8 @@ export default function Booking({ id }: BookingProp) {
     return (
         <>
             {booking &&
-                <div className="min-h-screen flex items-start justify-center bg-gray-50 px-4">
-                    <div className="w-full max-w-4xl mt-16 md:mt-20 bg-white rounded-2xl shadow-sm border border-gray-200 relative p-4">
+                <div className="min-h-screen flex items-start justify-center bg-gray-50 px-4 py-8">
+                    <div className="w-full max-w-4xl mt-16 md:mt-20 bg-white rounded-2xl shadow-sm border border-gray-200 relative p-8">
                         {booking.status === 'pending' &&
 
                             <div className="flex gap-1 absolute right-2 top-2 text-gray-700 bg-white rounded-2xl p-2">

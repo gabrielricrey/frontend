@@ -9,7 +9,7 @@ const Property = ({ property }: PropertyProp) => {
     const { id, image_url, name, description, price_per_night, user_id } = property;
 
     return (
-        <div className="w-full flex justify-center mt-16 md:mt-20  px-4 md:px-8">
+        <div className="w-full flex justify-center mt-16 md:mt-20  px-4 md:px-8 py-8">
             <div className="w-full lg:w-3/4 bg-white rounded-2xl shadow-sm overflow-hidden">
                 <Image
                     className="w-full h-64 md:h-80 object-cover"

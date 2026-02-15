@@ -12,7 +12,7 @@ const Logout = () => {
 
     }
     return (
-        <button className='flex items-center gap-2 cursor-pointer  text-gray-700 hover:text-blue-500' onClick={handleClick}><PowerIcon className='w-5 h-5' /><span className="">Sign out</span></button>
+        <button className='flex items-center gap-2 cursor-pointer  text-white ' onClick={handleClick}><PowerIcon className='w-5 h-5' /><span className="">Sign out</span></button>
     )
 }
 

@@ -13,11 +13,11 @@ export default function Profile() {
                     <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-2xl font-bold">
                         {user?.user?.first_name?.[0] || "U"}
                     </div>
-                    <div className="flex gap-2 border rounded-md border-gray-400 p-2">
+                    <div className="flex gap-2 border rounded-md border-gray-400 p-2 bg-black">
                         <Logout />
                         <Link
                             href="/me/update"
-                            className="text-gray-700 font-medium border-l pl-1 hover:text-blue-500"
+                            className="text-white  font-medium border-l pl-1"
                         >
                             Edit profile
                         </Link>

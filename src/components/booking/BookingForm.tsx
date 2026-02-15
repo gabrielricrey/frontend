@@ -103,9 +103,9 @@ const BookingForm = ({ propertyId, propertyUserId, pricePerNight, bookingId, che
                     className="border p-2 rounded w-full bg-white"
                 />
 
-                <p className="w-full my-2"> {totalCost > 0 && <span className="font-medium text-xl">$ {totalCost}</span>}</p>
+                <p className="w-full my-2"> {totalCost > 0 && <span className="font-medium text-xl"> $ {totalCost}</span>}</p>
 
-                <button className="bg-blue-500 text-white p-2 rounded-xl w-full" type="submit">{bookingId ? "Update" : "Book"}</button>
+                <button className="bg-black text-white p-2 rounded-xl w-full hover:cursor-pointer" type="submit">{bookingId ? "Update" : "Book"}</button>
             </form>
         </div >
     )

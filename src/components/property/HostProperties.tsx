@@ -4,7 +4,7 @@ import HostPropertyCard from "./HostPropertyCard";
 import { useState, useEffect, useMemo } from "react";
 import HostPropertyService from "@/utils/hostPropertyService";
 import Loading from "../Loading";
-import SectionTitle from "../SectionTitle";
+
 
 export default function HostProperties() {
     const [properties, setProperties] = useState<PropertyPreview[] | []>([]);
@@ -36,7 +36,6 @@ export default function HostProperties() {
 
     return (
         <div className="w-full max-w-6xl mx-auto px-4 mt-8">
-            <SectionTitle title={"Your properties"} />
 
             {loading &&
                 <Loading />
